@@ -1,0 +1,251 @@
+body,ul,li,div,h1,h2 {
+	padding: 0;
+	margin: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.clr {
+	clear: both;
+	overflow: hidden;
+	height: 0;
+}
+
+body {
+	height: 100%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	-moz-opacity: 0.5;
+	filter: alpha(opacity =              50);
+	background-image: url("images/home_page_background.gif");
+}
+
+a.Btn {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	display: block;
+	width: 40px;
+	padding: 2px 0;
+	text-align: center;
+	background: #fff;
+	border: 1px solid #85B6E2;
+	color: #333;
+}
+
+a.Btn:hover {
+	color: #fff;
+	border: 1px solid #85B6E2;
+	background: #85B6E2;
+}
+
+h1 {
+	color: #85B6E2;
+	text-align: center;
+	padding-top: 20px;
+}
+
+.content {
+	padding:10px; 
+	padding-bottom:30px;
+}
+
+.popupLayout {
+	border: 1px dashed #ccc;
+	background-image: none;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 30px;
+}
+
+.popupLayout .description {
+	color: #85B6E2;
+	float: left;
+	padding: 10px 20px 0 80px;
+	font-size: 20px;
+}
+
+.popupLayout .trigger {
+	width: 80px;
+	padding: 10px;
+	text-align: center;
+	background: #fff;
+	color: #333;
+	cursor: pointer;
+	float: left;
+}
+
+.popupLayout ul li {
+	width: 80px;
+	padding: 10px;
+	margin-left: 30px;
+	text-align: center;
+	background: #fff;
+	color: #333;
+	cursor: pointer;
+	float: left;
+	font-size: small;
+}
+
+.popupLayout ul li:HOVER {
+	color: #fff;
+	background: #85B6E2;
+	font-size: medium;;
+}
+
+.popupLayout select {
+	margin-top: 10px;
+}
+
+.blk {
+	width: 500px;
+	position: relative;
+}
+
+.blk .head,.blk .head-right,.blk .foot,.blk .foot-right {
+	background: url(images/pop_up_bg.png);
+	overflow: hidden;
+	height: 4px;
+}
+
+.blk .head {
+	padding-left: 4px;
+}
+
+.blk .head-right {
+	background-position: right top;
+}
+
+.blk .foot {
+	padding-left: 4px;
+	background-position: left bottom;
+	_height: 3px;
+}
+
+.blk .foot-right {
+	background-position: right bottom;
+}
+
+.blk .main {
+	border-left: 2px solid #85B6E2;
+	border-right: 2px solid #85B6E2;
+	position: relative;
+	background: #fff;
+}
+
+.blk .main h2 {
+	font: bold 16px "Microsoft YaHei";
+	padding: 10px 20px 2px;
+	color: #85B6E2;
+}
+
+.blk .main div {
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 20px;
+}
+
+.blk .main .textbox {
+	width: 400px;
+	zoom: 1;
+	background: #fff;
+	height: 20px;
+	padding: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	font: italic 16px;
+	border: 1px solid #000;
+}
+
+.blk ul li {
+	float: left;
+	width: 50px;
+	padding-left: 10px;
+	text-align: center;
+	line-height: 30px;
+	margin-bottom: 10px;
+}
+
+.blk  a {
+	margin: 0 auto;
+	padding: 5px;
+	display: block;
+	width: 60px;
+	text-align: center;
+	line-height: 30px;
+	border: 1px solid #85B6E2;
+	margin-bottom: 10px;
+}
+
+.blk  a:hover {
+	color: #fff;
+	border: 1px solid #85B6E2;
+	background: #85B6E2;
+	font-size: 16px;
+}
+
+.clearner_w30 {
+	clear: both;
+	width: 30%;
+	height: 30px;
+}
+
+.cleaner_h10 {
+	clear: both;
+	width: 100%;
+	height: 10px;
+}
+
+.cleaner_h20 {
+	clear: both;
+	width: 100%;
+	height: 20px;
+}
+
+.cleaner_h30 {
+	clear: both;
+	width: 100%;
+	height: 30px;
+}
+
+.cleaner_h40 {
+	clear: both;
+	width: 100%;
+	height: 40px;
+}
+
+.cleaner_h50 {
+	clear: both;
+	width: 100%;
+	height: 50px;
+}
+
+.cleaner_h60 {
+	clear: both;
+	width: 100%;
+	height: 60px;
+}
+
+.footer {
+	width: 840px;
+	height: 105px;
+	color: #666;
+	padding: 5px 70px 0 70px;
+}
+
+/**/
+* html .popup_iframe {
+	width: expression(this.previousSibling.style.width);
+	height: expression(this.previousSibling.style.height);
+}

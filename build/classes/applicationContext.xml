@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean
+		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:db.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>com/photoShare/hiber/domain/comments/TComment.hbm.xml</value>
+				<value>com/photoShare/hiber/domain/user/TUser.hbm.xml</value>
+				<value>com/photoShare/hiber/domain/photo/TPhoto.hbm.xml</value>
+				<value>com/photoShare/hiber/domain/like/TLike.hbm.xml</value>
+				<value>com/photoShare/hiber/domain/follow/TFollow.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.SQLServerDialect
+				hibernate.myeclipse.connection.profile=photoshare
+				hibernate.cache.use_second_level_cache=true
+				hibernate.cache.provider_class=org.hibernate.cache.OSCacheProvider
+				hibernate.show_sql=true
+				hibernate.format_sql=true
+			</value>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="url" value="${url}" />
+		<property name="initialSize" value="${initialSize}" />
+		<property name="maxActive" value="${maxActive}" />
+		<property name="maxIdle" value="${maxIdle}" />
+		<property name="minIdle" value="${minIdle}" />
+	</bean>
+
+
+	<bean id="baseHibernateDAO" class="com.photoShare.hiber.dao.BaseHibernateDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="basicService" class="com.photoShare.request.service.impl.BasicService">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- <bean id="responseBean" class="com.photoShare.response.service.impl.ResponseBean" 
+		/> -->
+	<bean id="fileTools" class="com.photoShare.request.service.impl.FileTools"></bean>
+	<bean id="asyncPools" class="com.photoShare.async.AsyncUtils"></bean>
+
+	<bean id="userService" class="com.photoShare.request.service.impl.UserService" />
+	<!-- <bean id="userResponseBean" class="com.photoShare.response.service.impl.UserResponseBean" 
+		/> -->
+	<bean id="photoService" class="com.photoShare.request.service.impl.PhotoService">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	<!-- <bean id="photoResponseBean" class="com.photoShare.response.service.impl.PhotoResponseBean"> 
+		<property name="rspBean" ref="commentResponseBean"></property> </bean> -->
+	<bean id="likeService" class="com.photoShare.request.service.impl.LikeService">
+		<property name="userDAO" ref="userDAO" />
+		<property name="photoDAO" ref="photoDAO" />
+	</bean>
+	<!-- <bean id="likeResponseBean" class="com.photoShare.response.service.impl.LikeResponseBean" 
+		/> -->
+	<bean id="followService" class="com.photoShare.request.service.impl.FollowService">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	<!-- <bean id="followResponseBean" class="com.photoShare.response.service.impl.FollowResponseBean" 
+		/> -->
+	<bean id="commentService" class="com.photoShare.request.service.impl.CommentService">
+		<property name="userDAO" ref="userDAO" />
+		<property name="photoDAO" ref="photoDAO" />
+	</bean>
+	<!-- <bean id="commentResponseBean" class="com.photoShare.response.service.impl.CommentResponseBean"> 
+		</bean> -->
+	<bean id="newsService" class="com.photoShare.request.service.impl.NewsService">
+	</bean>
+	<!-- <bean id="newsResponseBean" class="com.photoShare.response.service.impl.NewsResponseBean"> 
+		<property name="mPhotoResponseBean" ref="photoResponseBean"></property> </bean> -->
+
+	<bean id="userDAO" class="com.photoShare.hiber.domain.user.TUserDAO" />
+	<bean id="photoDAO" class="com.photoShare.hiber.domain.photo.TPhotoDAO" />
+	<bean id="likeDAO" class="com.photoShare.hiber.domain.like.TLikeDAO" />
+	<bean id="followDAO" class="com.photoShare.hiber.domain.follow.TFollowDAO" />
+	<bean id="commentDAO" class="com.photoShare.hiber.domain.comments.TCommentDAO" />
+
+
+
+
+	<bean id="TestActionClass" class="com.photoShare.actions.getInfo.TestAction"
+		autowire="byName" singleton="false">
+		<property name="iCommentService" ref="commentService" />
+	</bean>
+
+	<bean id="CommentActionClass" class="com.photoShare.actions.CommentAction"
+		autowire="byName" singleton="false">
+		<property name="iCommentService" ref="commentService" />
+	</bean>
+
+	<bean id="CommentGetInfoActionClass" class="com.photoShare.actions.getInfo.CommentGetInfoAction"
+		autowire="byName" singleton="false">
+		<property name="iCommentService" ref="commentService" />
+	</bean>
+
+	<bean id="FollowActionClass" class="com.photoShare.actions.FollowAction"
+		autowire="byName" singleton="false">
+		<property name="iFollowService" ref="followService" />
+	</bean>
+
+	<bean id="FriendsActionClass" class="com.photoShare.actions.FriendsAction"
+		autowire="byName" singleton="false">
+		<property name="iUserService" ref="userService" />
+	</bean>
+
+	<bean id="LikeActionClass" class="com.photoShare.actions.LikeAction"
+		autowire="byName" singleton="false">
+		<property name="iLikeService" ref="likeService" />
+	</bean>
+
+	<bean id="LoginActionClass" class="com.photoShare.actions.LoginAction"
+		autowire="byName" singleton="false">
+		<property name="mUserService" ref="userService" />
+	</bean>
+
+	<bean id="PhotoActionClass" class="com.photoShare.actions.PhotoAction"
+		autowire="byName" singleton="false">
+		<property name="iPhotoService" ref="photoService" />
+		<property name="iLikeService" ref="likeService" />
+	</bean>
+
+	<bean id="UploadFileActionClass" class="com.photoShare.actions.UploadFileAction"
+		autowire="byName" singleton="false">
+		<property name="photoServiceInterface" ref="photoService" />
+		<property name="mFileTools" ref="fileTools" />
+		<property name="async" ref="asyncPools" />
+	</bean>
+
+	<bean id="FollowGetInfoActionClass" class="com.photoShare.actions.getInfo.FollowGetInfoAction"
+		autowire="byName" singleton="false">
+		<property name="iFollowService" ref="followService" />
+	</bean>
+
+	<bean id="LikeGetInfoActionClass" class="com.photoShare.actions.getInfo.LikeGetInfoAction"
+		autowire="byName" singleton="false">
+		<property name="iLikeService" ref="likeService" />
+	</bean>
+
+	<bean id="NewsActionClass" class="com.photoShare.actions.getInfo.NewsAction"
+		autowire="byName" singleton="false">
+		<property name="mNewsService" ref="newsService" />
+	</bean>
+
+	<bean id="PhotosGetInfoActionClass" class="com.photoShare.actions.getInfo.PhotosGetInfoAction"
+		autowire="byName" singleton="false">
+		<property name="iPhotoService" ref="photoService" />
+		<property name="iLikeService" ref="likeService" />
+	</bean>
+
+	<bean id="UserHomeClass" class="com.photoShare.actions.getInfo.UserHome"
+		autowire="byName" singleton="false">
+		<property name="iUserService" ref="userService" />
+		<property name="userDao" ref="userDAO" />
+	</bean>
+</beans>

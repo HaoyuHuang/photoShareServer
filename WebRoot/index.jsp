@@ -1,0 +1,1 @@
+<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/struts2/helloWorld.action">

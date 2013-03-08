@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!DOCTYPE Messages[
+<!ELEMENT Messages (message+) >
+<!ELEMENT message (property*) >
+<!ATTLIST message class CDATA #IMPLIED>
+<!ATTLIST message key CDATA #REQUIRED>
+<!ATTLIST property name CDATA #REQUIRED>
+<!ATTLIST property value CDATA #REQUIRED>
+<!ATTLIST property type (java.lang.Integer|java.lang.String|java.sql.Timestamp) "java.lang.String">
+<!ELEMENT property	(#PCDATA)>
+]>
+
+<Messages>
+	<message key="photo">
+		<property name="KEY_PID" value="pid" />
+		<property name="KEY_CAPTION" value="caption" />
+		<property name="KEY_CREATE_TIME" value="createTime" />
+		<property name="KEY_LIKES_COUNT" value="likesCount" />
+		<property name="KEY_COMMENT_COUNT" value="commentCount" />
+		<property name="KEY_TINY_URL" value="tinyurl" />
+		<property name="KEY_MIDDLE_URL" value="url" />
+		<property name="KEY_LARGE_URL" value="largeurl" />
+		<property name="KEY_PHOTO" value="photo" />
+		<property name="KEY_PHOTOS" value="photos" />
+	</message>
+
+	<message key="follow">
+		<property name="KEY_USER_ID" value="userId" />
+		<property name="KEY_FOLLOW_ID" value="followId" />
+		<property name="KEY_FOLLOWING" value="isFollowing" />
+		<property name="KEY_FOLLOW_IDS" value="followIds" />
+	</message>
+
+	<message key="user">
+		<property name="KEY_UID" value="uid" />
+		<property name="KEY_NAME" value="name" />
+		<property name="KEY_PSEUDO_NAME" value="pseudoname" />
+		<property name="KEY_MAIL" value="mail" />
+		<property name="KEY_GENDER" value="gender" />
+		<property name="KEY_BIRTHDAY" value="birthday" />
+		<property name="KEY_WEBSITE" value="website" />
+		<property name="KEY_BIO" value="bio" />
+		<property name="KEY_PHONE_NUMBER" value="phone" />
+		<property name="KEY_PRIVACY" value="privacy" />
+		<property name="KEY_TINY_HEAD_URL" value="tinyurl" />
+		<property name="KEY_MIDDLE_HEAD_URL" value="headurl" />
+		<property name="KEY_LARGE_HEAD_URL" value="largeurl" />
+		<property name="KEY_FOLLOWER_CNT" value="follower" />
+		<property name="KEY_FOLLOWING_CNT" value="following" />
+		<property name="KEY_IS_FOLLOWING" value="isFollowing" />
+		<property name="KEY_PHOTOS_CNT" value="photosCnt" />
+		<property name="KEY_LIKES_CNT" value="likesCnt" />
+	</message>
+
+	<message key="like">
+		<property name="KEY_LIKES" value="like" />
+		<property name="KEY_LID" value="lid" />
+		<property name="KEY_PID" value="pid" />
+		<property name="KEY_UID" value="uid" />
+		<property name="KEY_UNAME" value="uname" />
+		<property name="KEY_TINY_UHEAD" value="tinyHead" />
+		<property name="KEY_CREATE_TIME" value="createTime" />
+	</message>
+
+	<message key="news">
+		<property name="KEY_NEWS" value="news" />
+		<property name="KEY_EVENT_TIME" value="time" />
+		<property name="KEY_EVENT_TYPE" value="type" />
+		<property name="KEY_EVENT_DESC" value="desc" />
+	</message>
+
+	<message key="comments">
+		<property name="KEY_COMMENTS" value="comments" />
+		<property name="KEY_CID" value="cid" />
+		<property name="KEY_PID" value="pid" />
+		<property name="KEY_UID" value="uid" />
+		<property name="KEY_UNAME" value="uname" />
+		<property name="KEY_TINY_UHEAD" value="tinyurl" />
+		<property name="KEY_CONTENT" value="content" />
+		<property name="KEY_CREATE_TIME" value="createTime" />
+	</message>
+
+</Messages>

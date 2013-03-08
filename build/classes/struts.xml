@@ -1,0 +1,154 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 交给Spring托管 -->
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.multipart.saveDir" value="/temp" />
+
+	<package name="default" extends="struts-default" namespace="/photoShare">
+
+		<interceptors>
+			<interceptor name="myfirstInterceptor"
+				class="com.struts2.interceptor.MyFirstInterceptor">
+			</interceptor>
+
+			<interceptor-stack name="appDefaultStack">
+
+				<interceptor-ref name="defaultStack">
+
+					<param name="exception.logEnabled">
+						true
+					</param>
+					<param name="exception.logLevel">
+						ERROR
+					</param>
+				</interceptor-ref>
+			</interceptor-stack>
+
+			<interceptor-stack name="fileUploadStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="alias" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="debugging" />
+				<interceptor-ref name="profiling" />
+				<interceptor-ref name="scopedModelDriven" />
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="fileUpload">
+					<param name="maximumSize">10240</param>
+					<param name="allowedTypes"> image/jpeg,image/gif,image/png</param>
+				</interceptor-ref>
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="actionMappingParams" />
+				<interceptor-ref name="params">
+					<param name="excludeParams"> dojo\..*,^struts\..*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods"> input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods"> input,back,cancel,browse</param>
+				</interceptor-ref>
+			</interceptor-stack>
+
+			<interceptor-stack name="fileUploadStack">
+				<interceptor-ref name="fileUpload">
+					<!-- 配置允许上传的文件类型 -->
+					<param name="allowedTypes">image/bmp,image/png,image/gif,image/jpeg
+					</param>
+					<!-- 配置允许上传的文件大小单位字节 -->
+					<param name="maximumSize">5242880</param>
+				</interceptor-ref>
+			</interceptor-stack>
+
+		</interceptors>
+
+		<default-interceptor-ref name="appDefaultStack" />
+
+		<action name="test" class="com.photoShare.actions.CommentAction">
+			<interceptor-ref name="myfirstInterceptor"></interceptor-ref>
+			<result name="SUCCESS">
+				/success.jsp
+			</result>
+		</action>
+
+		<action name="PhotosGetInfoAction_*" class="PhotosGetInfoActionClass" method="{1}">
+			<result name="SUCCESS">
+				/success.jsp
+			</result>
+		</action>
+
+		<action name="uploadPhoto" class="uploadFileClass">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="defaultStack" />
+			<result name="input">/uploadfile.jsp </result>
+			<result name="SUCCESS">
+				/uploadsuccess.jsp
+			</result>
+		</action>
+	</package>
+
+	<package name="ajaxDemo" extends="json-default" namespace="/photoShare-mobile">
+		<action name="loadInfo" class="AjaxActionClass">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="CommentAction" class="CommentActionClass">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="CommentGetInfoAction" class="CommentGetInfoActionClass">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="FriendsAction_*" method="{1}" class="FriendsActionClass">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="FollowAction" class="FollowActionClass">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="FollowGetInfoAction_*" class="FollowGetInfoActionClass"
+			method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="LikeGetInfoAction" class="LikeGetInfoActionClass">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="LikeAction" class="LikeActionClass">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="NewsAction_*" class="NewsActionClass" method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="PhotoAction" class="PhotoActionClass">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="PhotosGetInfoAction_*" class="PhotosGetInfoActionClass"
+			method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="UploadFileAction" class="UploadFileActionClass">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="LoginAction_*" class="LoginActionClass" method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="UserHome_*" class="UserHomeClass" method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>
