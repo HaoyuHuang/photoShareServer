@@ -25,9 +25,22 @@
 	</s:form>
 
 	<s:form method="post" enctype="multipart/form-data"
-		action="/photoShare-mobile/UploadFileAction">
-		<s:hidden value="2" id="photo.uid" />
-		<s:file value="Photo" id="photo.file" />
+		action="/photoShare/uploadPhoto">
+		<s:textfield name="uid" />
+		<s:file value="Photo" name="image" />
+		<s:submit value="upload" />
+	</s:form>
+
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/UserHome_getOtherProfile">
+		<s:textfield name="userInfo.uid" />
+		<s:textfield name="userInfo.fid" />
+		<s:submit value="upload" />
+	</s:form>
+	
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/UserHome_getUserProfile">
+		<s:textfield name="userInfo.uid" />
 		<s:submit value="upload" />
 	</s:form>
 </body>

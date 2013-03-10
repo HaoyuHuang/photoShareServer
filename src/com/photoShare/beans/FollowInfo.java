@@ -7,6 +7,8 @@ public class FollowInfo {
 
 	private boolean isFollowing;
 
+	private String date;
+
 	public int getUid() {
 		return uid;
 	}
@@ -29,6 +31,14 @@ public class FollowInfo {
 
 	public void setFollowing(boolean isFollowing) {
 		this.isFollowing = isFollowing;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 }

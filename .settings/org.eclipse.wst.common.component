@@ -2,7 +2,7 @@
     <wb-module deploy-name="Spring3Struts2">
         <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="Spring3Struts2"/>
         <property name="java-output-path" value="/Spring3Struts2/build/classes"/>
+        <property name="context-root" value="photoShareServer"/>
     </wb-module>
 </project-modules>

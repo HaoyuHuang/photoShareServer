@@ -80,7 +80,7 @@ public class PhotoService extends BasicService implements IPhotoService {
 						.Caption(rs.getString(8))
 						.CreateTime(rs.getDate(9).toString())
 						.CommentCnt(rs.getInt(10)).LikesCnt(rs.getInt(11))
-						.isLike(rs.getInt(12) == 1 ? true : false).build();
+						.isLike(rs.getBoolean(12)).build();
 				list.add(bean);
 			}
 			return list;

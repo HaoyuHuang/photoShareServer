@@ -6,6 +6,7 @@ package com.photoShare.request.service;
 import java.io.Serializable;
 import java.util.List;
 
+import com.photoShare.beans.FollowInfo;
 import com.photoShare.hiber.domain.follow.TFollow;
 import com.photoShare.hiber.domain.user.TUser;
 
@@ -29,7 +30,7 @@ public interface IFollowService {
 	 * @param follower
 	 *            跟随事件
 	 * */
-	public TFollow startFollowing(java.io.Serializable userId,
+	public FollowInfo startFollowing(java.io.Serializable userId,
 			java.io.Serializable followId);
 
 	/**
@@ -37,6 +38,7 @@ public interface IFollowService {
 	 * 
 	 * @param 跟随事件
 	 * */
+	@Deprecated
 	public TFollow cacelFollowing(java.io.Serializable userId,
 			java.io.Serializable followId);
 }

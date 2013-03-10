@@ -53,8 +53,11 @@ public class PhotoFactory {
 		if (_file == null)
 			return null;
 		String fileName = _file.getPath();
+		System.out.println("factory --- " + fileName);
 		String curPath = fileName.substring(0, fileName.lastIndexOf('\\') + 1);
 		newImgName = curPath + newImgName;
+		System.out.println("factory -- newImgName" + newImgName);
+		File newImageFile = new File(newImgName);
 		if (fileName == null || "".equals(fileName)
 				|| fileName.lastIndexOf(".") == -1)
 			return null;
@@ -75,7 +78,7 @@ public class PhotoFactory {
 		if (!_file.exists() || !_file.isAbsolute() || !_file.isFile()
 				|| !checkImageFile(fileExtName))
 			return null;
-		if ((new File(newImgName)).exists()) {
+		if (newImageFile.exists()) {
 			System.out.println("file [" + newImgName + "] already exists");
 			throw new Exception();
 		}
@@ -125,7 +128,7 @@ public class PhotoFactory {
 		tag.getGraphics().drawImage(src, 0, 0, nw, nh, null);
 
 		// 将画好的目标图输出到输出流 方式1
-		ImageIO.write(tag, "jpg", new File(newImgName));
+		ImageIO.write(tag, "jpg", newImageFile);
 
 		out.close();
 		return newImgName;

@@ -13,14 +13,6 @@ import com.photoShare.hiber.domain.user.TUser;
 
 public class BeansFactory {
 
-	private static class BeansFactoryHolder {
-		public static BeansFactory beansFactory = new BeansFactory();
-	}
-
-	public static BeansFactory Instance() {
-		return BeansFactoryHolder.beansFactory;
-	}
-
 	public Comment convertBean(TComment srcComment) {
 		Comment destComment = new Comment();
 		TUser user = srcComment.getTUser();

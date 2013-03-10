@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 
 import com.photoShare.beans.photos.PhotoFactory;
 import com.photoShare.beans.photos.PhotoType;
+import com.photoShare.hiber.domain.photo.TPhoto;
+import com.photoShare.server.Server;
 
 public class AsyncUtils {
 
@@ -53,7 +55,7 @@ public class AsyncUtils {
 		});
 	}
 
-	public void processImages(final File file,
+	public void processImages(final TPhoto photo, final File file,
 			final AbstractAsyncListener<String> listener) {
 		pool.execute(new Runnable() {
 
@@ -68,26 +70,48 @@ public class AsyncUtils {
 						switch (type) {
 						case TINY:
 							newImage = "tiny" + oImage;
+							System.out.println(newImage);
+							String path = PhotoFactory.createNewImage(file,
+									PhotoFactory.CREATENEWIMAGETYPE_1,
+									type.getWidth(), type.getHeight(), newImage);
+							System.out.println(path);
+							photo.setFSmallSizeUrl(path
+									.substring(Server.SERVER_CLASS_PATH
+											.length() - 1));
 							break;
 						case MIDDLE:
 							newImage = "middle" + oImage;
+							System.out.println(newImage);
+							path = PhotoFactory.createNewImage(file,
+									PhotoFactory.CREATENEWIMAGETYPE_1,
+									type.getWidth(), type.getHeight(), newImage);
+							System.out.println(path);
+							photo.setFSmallSizeUrl(path
+									.substring(Server.SERVER_CLASS_PATH
+											.length() - 1));
 							break;
 						case LARGE:
 							newImage = "large" + oImage;
+							System.out.println(newImage);
+							path = PhotoFactory.createNewImage(file,
+									PhotoFactory.CREATENEWIMAGETYPE_1,
+									type.getWidth(), type.getHeight(), newImage);
+							System.out.println(path);
+							photo.setFSmallSizeUrl(path
+									.substring(Server.SERVER_CLASS_PATH
+											.length() - 1));
 							break;
 						default:
 						}
-						PhotoFactory.createNewImage(file,
-								PhotoFactory.CREATENEWIMAGETYPE_1,
-								type.getWidth(), type.getHeight(), newImage);
-						if (listener != null) {
-							listener.onComplete(newImage);
-						}
+
 					} catch (Exception e) {
 						if (listener != null) {
 							listener.onFault(e);
 						}
 					}
+				}
+				if (listener != null) {
+					listener.onComplete("");
 				}
 			}
 		});

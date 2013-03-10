@@ -19,11 +19,7 @@ public class LikeAction extends ActionSupport {
 			int uid = like.getUid();
 			int pid = like.getPid();
 			boolean isLike = like.isLike();
-			if (isLike) {
-				iLikeService.Like(uid, pid);
-			} else {
-				iLikeService.Dislike(uid, pid);
-			}
+			iLikeService.Like(uid, pid);
 		} catch (Exception e) {
 			throw e;
 		}

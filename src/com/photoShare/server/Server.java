@@ -8,7 +8,7 @@ public class Server {
 
 	public static String SERVER_CLASS_PATH = "";
 
-	public final static String PROJECT_NAME = "photoShare";
+	public final static String PROJECT_NAME = "photoShareServer";
 
 	public static void init(String classpath) {
 		try {

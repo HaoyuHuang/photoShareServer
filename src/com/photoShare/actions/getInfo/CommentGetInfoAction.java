@@ -29,7 +29,7 @@ public class CommentGetInfoAction extends ActionSupport {
 
 			List<TComment> rspComments = iCommentService
 					.getComments(pid, 0, 10);
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			comments = new ArrayList<Comment>();
 			for (TComment rsp : rspComments) {
 				comments.add(factory.convertBean(rsp));

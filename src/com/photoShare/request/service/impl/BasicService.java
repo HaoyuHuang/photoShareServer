@@ -152,6 +152,7 @@ public class BasicService implements IBasicService {
 			t.commit();
 			// session.save(obj);
 		} catch (Exception e) {
+			e.printStackTrace();
 			if (t != null)
 				t.rollback();
 		} finally {

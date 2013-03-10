@@ -33,7 +33,7 @@ public class FriendsAction extends ActionSupport {
 			List<TUser> users = iUserService.findUserByName(name, pageNow,
 					pageSize);
 			System.out.println(users.size());
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			friends = new ArrayList<UserInfo>();
 			for (TUser user : users) {
 				friends.add(factory.convertBean(user, false));

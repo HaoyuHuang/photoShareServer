@@ -31,7 +31,7 @@ public class UserHome extends ActionSupport {
 			user.setFPhoneNumber(userInfo.getPhone());
 			user.setFBirthday(Format.TimeConverte(userInfo.getBirthday()));
 			user.setFBio(userInfo.getBio());
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			userInfo = factory.convertBean(user, false);
 			iUserService.editUserInfo(user);
 		} catch (Exception e) {
@@ -47,9 +47,7 @@ public class UserHome extends ActionSupport {
 
 		try {
 			int uid = userInfo.getUid();
-			TUser user = iUserService.getUserInfo(uid);
-			BeansFactory factory = BeansFactory.Instance();
-			userInfo = factory.convertBean(user, false);
+			userInfo = iUserService.getUserInfo(uid);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -59,15 +57,12 @@ public class UserHome extends ActionSupport {
 
 	@JSON(serialize = false)
 	public String getOtherProfile() {
-
+		System.out.println("getOtherProfile");
 		try {
 			int uid = userInfo.getUid();
 			int fid = userInfo.getFid();
 			String fields = userInfo.getFields();
-			TUser user = iUserService.getUserInfo(uid);
-			boolean isFollowing = iUserService.isFollowing(uid, fid);
-			BeansFactory factory = BeansFactory.Instance();
-			userInfo = factory.convertBean(user, isFollowing);
+			userInfo = iUserService.getOtherUserInfo(uid, fid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -85,7 +80,7 @@ public class UserHome extends ActionSupport {
 			int mPrivacy = privacy ? 1 : 0;
 			user.setFPrivacy(mPrivacy);
 			iUserService.editUserInfo(user);
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			userInfo = factory.convertBean(user, false);
 		} catch (Exception e) {
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "…Ë÷√ ß∞‹",

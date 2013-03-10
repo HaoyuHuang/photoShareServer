@@ -142,7 +142,6 @@
 
 	<bean id="UploadFileActionClass" class="com.photoShare.actions.UploadFileAction"
 		autowire="byName" singleton="false">
-		<property name="photoServiceInterface" ref="photoService" />
 		<property name="mFileTools" ref="fileTools" />
 		<property name="async" ref="asyncPools" />
 	</bean>

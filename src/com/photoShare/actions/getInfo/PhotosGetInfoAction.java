@@ -35,7 +35,7 @@ public class PhotosGetInfoAction extends ActionSupport {
 			String fields = userInfo.getFields();
 			List<TPhoto> feeds = iPhotoService.getUserLikedPhoto(uid, 0, 10);
 			photos = new ArrayList<PhotoBean>();
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			for (TPhoto feed : feeds) {
 				photos.add(factory.convertBean(feed, true));
 			}
@@ -56,7 +56,7 @@ public class PhotosGetInfoAction extends ActionSupport {
 			String fields = userInfo.getFields();
 			List<TPhoto> feeds = iPhotoService.getUserPhotos(uid, 0, 10);
 			photos = new ArrayList<PhotoBean>();
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			for (TPhoto feed : feeds) {
 				photos.add(factory.convertBean(feed, true));
 			}
@@ -91,7 +91,6 @@ public class PhotosGetInfoAction extends ActionSupport {
 	public String getPhotosFeeds() {
 		System.out.println("gePhotosFeeds");
 		try {
-
 			int uid = userInfo.getUid();
 			int pageNow = userInfo.getCurrentPage();
 			int pageSize = userInfo.getDemandPage();

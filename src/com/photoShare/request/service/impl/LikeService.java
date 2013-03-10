@@ -4,6 +4,7 @@
 package com.photoShare.request.service.impl;
 
 import java.io.Serializable;
+import java.sql.Types;
 import java.util.List;
 
 import com.photoShare.exception.NetworkError;
@@ -32,30 +33,15 @@ public class LikeService extends BasicService implements ILikeService {
 	 * .TLike)
 	 */
 	public TLike Like(Serializable userId, Serializable photoId) {
-		TLike like = new TLike();
+		Object[] params = new Object[] { userId, photoId };
+		int[] types = new int[] { Types.INTEGER, Types.INTEGER };
+		String proc = "{call PUT_LIKE(?,?)}";
 		try {
-			if (!exist(userId, photoId)) {
-				TUser user = userDAO.findById(userId);
-				TPhoto photo = photoDAO.findById(photoId);
-				System.out.println(userId);
-				System.out.println(photoId);
-				if (user == null || photo == null) {
-					throw new NetworkError(NetworkError.ERRPR_LIKE, "ÔÞÊ§°Ü",
-							"ÔÞÊ§°Ü");
-				}
-				like.setTPhoto(photo);
-				like.setTUser(user);
-				save(like);
-			} else {
-				throw new NetworkError(NetworkError.ERRPR_LIKE, "ÔÞÊ§°Ü", "ÔÞÊ§°Ü");
-			}
-			return like;
-		} catch (RuntimeException e) {
-//			throw new NetworkError(NetworkError.ERRPR_LIKE, "ÔÞÊ§°Ü", "ÔÞÊ§°Ü");
-			return null;
-		} finally {
-			like = null;
+			executeProcedure(proc, params, types);
+		} catch (Exception e1) {
+			throw new NetworkError(NetworkError.ERRPR_LIKE, "ÔÞÊ§°Ü", "ÔÞÊ§°Ü");
 		}
+		return null;
 	}
 
 	public TUserDAO getUserDAO() {
@@ -147,8 +133,8 @@ public class LikeService extends BasicService implements ILikeService {
 		try {
 			TLike like = (TLike) uniqueQuery(hql, params);
 			if (like == null) {
-//				throw new TransactionError(
-//						TransactionError.ERROR_CODE_NO_LIKE_ITEMS);
+				// throw new TransactionError(
+				// TransactionError.ERROR_CODE_NO_LIKE_ITEMS);
 			}
 			return like != null ? true : false;
 		} catch (Exception e) {

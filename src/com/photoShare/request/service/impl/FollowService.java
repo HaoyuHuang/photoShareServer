@@ -4,9 +4,13 @@
 package com.photoShare.request.service.impl;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.photoShare.beans.FollowInfo;
 import com.photoShare.exception.NetworkError;
 import com.photoShare.exception.TransactionError;
 import com.photoShare.hiber.domain.follow.TFollow;
@@ -29,23 +33,16 @@ public class FollowService extends BasicService implements IFollowService {
 	 * com.service.interfaces.FollowServiceInterface#startFollowing(com.hiber
 	 * .domain.follow.TFollow)
 	 */
-	public TFollow startFollowing(Serializable userId, Serializable followId) {
-		TFollow follower = new TFollow();
-		TUser user = userDAO.findById(userId);
-		TUser follow = userDAO.findById(followId);
-		if (user == null || follow == null) {
-			throw new NetworkError(NetworkError.ERROR_FOLLOW, "¸úËæÊ§°Ü", "¸úËæÊ§°Ü");
-		}
-		follower.setTUserByFMyId(user);
-		follower.setTUserByFFollowId(follow);
+	public FollowInfo startFollowing(Serializable userId, Serializable followId) {
+		Object[] params = new Object[] { userId, followId };
+		String proc = "{call START_FOLLOW(?,?)}";
+		int[] types = new int[] { Types.INTEGER, Types.INTEGER };
 		try {
-			this.save(follower);
-			return follower;
-		} catch (RuntimeException e) {
+			executeProcedure(proc, params, types);
+		} catch (Exception e1) {
 			throw new NetworkError(NetworkError.ERROR_FOLLOW, "¸úËæÊ§°Ü", "¸úËæÊ§°Ü");
-		} finally {
-			follower = null;
 		}
+		return null;
 	}
 
 	public TUserDAO getUserDAO() {

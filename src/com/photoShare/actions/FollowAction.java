@@ -18,16 +18,10 @@ public class FollowAction extends ActionSupport {
 		try {
 			int uid = follow.getUid();
 			int fid = follow.getFid();
-			boolean isFollowing = follow.isFollowing();
-			if (isFollowing) {
-				iFollowService.startFollowing(uid, fid);
-			} else {
-				iFollowService.cacelFollowing(uid, fid);
-			}
+			follow = iFollowService.startFollowing(uid, fid);
 		} catch (Exception e) {
 			throw new NetworkError(NetworkError.ERROR_FOLLOW, "¸úËæÊ§°Ü", "¸úËæÊ§°Ü");
 		}
-
 		return SUCCESS;
 	}
 

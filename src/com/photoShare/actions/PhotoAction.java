@@ -27,7 +27,7 @@ public class PhotoAction extends ActionSupport {
 			int pid = photoBean.getPid();
 			int uid = photoBean.getUid();
 			TPhoto tphoto = iPhotoService.getPhoto(pid);
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			photo = factory.convertBean(tphoto, iLikeService.isLike(uid, pid));
 		} catch (Exception e) {
 			e.printStackTrace();

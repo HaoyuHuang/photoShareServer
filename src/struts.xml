@@ -77,16 +77,14 @@
 			</result>
 		</action>
 
-		<action name="PhotosGetInfoAction_*" class="PhotosGetInfoActionClass" method="{1}">
+		<action name="PhotosGetInfoAction_*" class="PhotosGetInfoActionClass"
+			method="{1}">
 			<result name="SUCCESS">
 				/success.jsp
 			</result>
 		</action>
 
-		<action name="uploadPhoto" class="uploadFileClass">
-			<interceptor-ref name="fileUpload" />
-			<interceptor-ref name="defaultStack" />
-			<result name="input">/uploadfile.jsp </result>
+		<action name="uploadPhoto" class="com.photoShare.actions.UploadFileAction">
 			<result name="SUCCESS">
 				/uploadsuccess.jsp
 			</result>

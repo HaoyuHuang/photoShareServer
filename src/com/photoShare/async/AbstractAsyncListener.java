@@ -56,7 +56,7 @@ public abstract class AbstractAsyncListener<T> {
 	 * 
 	 */
 	public abstract void onComplete(final T bean);
-
+	
 	/**
 	 * 
 	 * @param fault

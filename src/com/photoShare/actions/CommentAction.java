@@ -27,13 +27,13 @@ public class CommentAction extends ActionSupport {
 			CommentService iCommentService = new CommentService();
 			iCommentService.setPhotoDAO(new TPhotoDAO());
 			iCommentService.setUserDAO(new TUserDAO());
-			TComment rspComment = iCommentService.putComments("qwe", 3, 16);
+			iCommentService.putComments("qwe", 3, 16);
 
 			// BeansFactory factory = BeansFactory.Instance();
 			// comment = factory.convertBean(rspComment);
 
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
 		}
 
 		return SUCCESS;

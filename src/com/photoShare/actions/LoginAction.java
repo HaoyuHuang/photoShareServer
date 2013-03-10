@@ -23,7 +23,7 @@ public class LoginAction extends ActionSupport {
 		user.setFPassword(pwd);
 		try {
 			user = mUserService.signin(user);
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			userInfo = factory.convertBean(user, false);
 		} catch (Exception e) {
 
@@ -46,7 +46,7 @@ public class LoginAction extends ActionSupport {
 		try {
 			if (mUserService.check(user)) {
 				mUserService.register(user);
-				BeansFactory factory = BeansFactory.Instance();
+				BeansFactory factory = new BeansFactory();
 				userInfo = factory.convertBean(user, false);
 			}
 		} catch (Exception e) {

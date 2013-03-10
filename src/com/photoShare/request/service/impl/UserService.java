@@ -1,10 +1,14 @@
 package com.photoShare.request.service.impl;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.photoShare.beans.UserInfo;
 import com.photoShare.exception.NetworkError;
 import com.photoShare.exception.TransactionError;
 import com.photoShare.hiber.domain.follow.TFollow;
@@ -79,22 +83,38 @@ public class UserService extends BasicService implements IUserService {
 		}
 	}
 
-	public TUser getUserInfo(Serializable id) {
-		String hql = "from com.photoShare.hiber.domain.user.TUser "
-				+ "where FId = ?";
-		Integer[] params = { Integer.valueOf(id.toString()) };
+	public UserInfo getUserInfo(Serializable id) {
+		Object[] params = new Object[] { id };
+		String proc = "{call GET_USER_INFO(?)}";
+		int[] types = new int[] { Types.INTEGER };
+		ResultSet rs = executeProcedure(proc, params, types);
+		UserInfo user = new UserInfo();
 		try {
-			TUser user = (TUser) uniqueQuery(hql, params);
-			if (user == null) {
-				throw new TransactionError(
-						TransactionError.ERROR_CODE_ILLEGAL_PARAMETER);
+			while (rs.next()) {
+				user.setUid(rs.getInt(1));
+				user.setMail(rs.getString(2));
+				user.setPwd(rs.getString(3));
+				user.setName(rs.getString(4));
+				user.setPseudoname(rs.getString(5));
+				user.setTinyurl(rs.getString(7));
+				user.setWebsite(rs.getString(8));
+				user.setBio(rs.getString(9));
+				user.setPhone(rs.getString(10));
+				user.setGender(rs.getString(11));
+				user.setBirthday(rs.getString(12));
+				user.setPrivacy(rs.getBoolean(13));
+				user.setHeadurl(rs.getString(14));
+				user.setLargeurl(rs.getString(15));
+				user.setPhotosCnt(rs.getInt(16));
+				user.setFollower(rs.getInt(17));
+				user.setFollowing(rs.getInt(18));
+				user.setLikesCnt(rs.getInt(19));
 			}
-			return user;
-		} catch (RuntimeException e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
 					"無法獲取數據");
 		}
+		return user;
 	}
 
 	public int getUserLikesCount(Serializable id) {
@@ -207,5 +227,41 @@ public class UserService extends BasicService implements IUserService {
 			throw new NetworkError(NetworkError.ERROR_FIND_FRIENDS, "查找失败",
 					"查找失败");
 		}
+	}
+
+	@Override
+	public UserInfo getOtherUserInfo(Serializable uid, Serializable fid) {
+		Object[] params = new Object[] { uid, fid };
+		String proc = "{call GET_OTHER_USER_INFO(?,?)}";
+		int[] types = new int[] { Types.INTEGER, Types.INTEGER };
+		ResultSet rs = executeProcedure(proc, params, types);
+		UserInfo user = new UserInfo();
+		try {
+			while (rs.next()) {
+				user.setUid(rs.getInt(1));
+				user.setMail(rs.getString(2));
+				user.setPwd(rs.getString(3));
+				user.setName(rs.getString(4));
+				user.setPseudoname(rs.getString(5));
+				user.setTinyurl(rs.getString(7));
+				user.setWebsite(rs.getString(8));
+				user.setBio(rs.getString(9));
+				user.setPhone(rs.getString(10));
+				user.setGender(rs.getString(11));
+				user.setBirthday(rs.getString(12));
+				user.setPrivacy(rs.getBoolean(13));
+				user.setHeadurl(rs.getString(14));
+				user.setLargeurl(rs.getString(15));
+				user.setPhotosCnt(rs.getInt(16));
+				user.setFollower(rs.getInt(17));
+				user.setFollowing(rs.getInt(18));
+				user.setFollowing(rs.getBoolean(19));
+				user.setLikesCnt(rs.getInt(20));
+			}
+		} catch (SQLException e) {
+			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
+					"無法獲取數據");
+		}
+		return user;
 	}
 }

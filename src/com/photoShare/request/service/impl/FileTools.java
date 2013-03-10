@@ -34,7 +34,8 @@ public class FileTools implements IFileTools {
 	public String write(File origFile, String destPath) {
 		// TODO Auto-generated method stub
 		try {
-			String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+			String uuid = UUID.randomUUID().toString().replaceAll("-", "")
+					+ ".jpg";
 			File destFile = new File(destPath, uuid);
 			FileUtils.copyFile(origFile, destFile);
 			return uuid;

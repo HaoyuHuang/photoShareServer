@@ -28,7 +28,7 @@ public class LikeGetInfoAction extends ActionSupport {
 
 			List<TLike> tlikes = iLikeService.getLikesInfo(pid, 0, 10);
 			likes = new ArrayList<LikeInfo>();
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			for (TLike like : tlikes) {
 				System.out.println(like.getFLikeTime());
 				likes.add(factory.convertBean(like));

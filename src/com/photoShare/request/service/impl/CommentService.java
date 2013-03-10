@@ -5,6 +5,7 @@ package com.photoShare.request.service.impl;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.List;
 
 import com.photoShare.exception.NetworkError;
@@ -34,32 +35,15 @@ public class CommentService extends BasicService implements ICommentService {
 	 */
 	public TComment putComments(String comment, Serializable userId,
 			Serializable photoId) {
-		TComment com = new TComment();
-		TUser user = userDAO.findById(userId);
-		TPhoto photo = photoDAO.findById(photoId);
-		if (user == null || photo == null) {
-//			throw new TransactionError(
-//					TransactionError.ERROR_CODE_ILLEGAL_PARAMETER);
-		}
-
+		Object[] params = new Object[] { userId, photoId, comment };
+		String proc = "{call PUT_COMMENT(?,?,?)}";
+		int[] types = new int[] { Types.INTEGER, Types.INTEGER, Types.VARCHAR };
 		try {
-			com.setTUser(user);
-			com.setTPhoto(photo);
-			com.setFContent(comment);
-			Timestamp ts = new Timestamp(System.currentTimeMillis());
-			try {
-				com.setFCreateTime(ts);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			this.save(com);
-			return com;
-		} catch (RuntimeException e) {
+			executeProcedure(proc, params, types);
+		} catch (Exception e1) {
 			throw new NetworkError(NetworkError.ERROR_COMMENT, "∆¿¬€ ß∞‹", "∆¿¬€ ß∞‹");
-		} finally {
-			com = null;
 		}
+		return null;
 	}
 
 	public TUserDAO getUserDAO() {

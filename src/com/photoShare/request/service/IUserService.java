@@ -6,6 +6,7 @@ package com.photoShare.request.service;
 import java.io.Serializable;
 import java.util.List;
 
+import com.photoShare.beans.UserInfo;
 import com.photoShare.hiber.domain.user.TUser;
 
 /**
@@ -37,7 +38,10 @@ public interface IUserService extends IBasicService {
 	 * @param id
 	 *            ÓÃ»§ID
 	 * */
-	public TUser getUserInfo(java.io.Serializable id);
+	public UserInfo getUserInfo(java.io.Serializable id);
+
+	public UserInfo getOtherUserInfo(java.io.Serializable uid,
+			java.io.Serializable fid);
 
 	public List<TUser> findUserByName(String name, int pageNow, int pageSize);
 

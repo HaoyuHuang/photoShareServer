@@ -32,7 +32,7 @@ public class FollowGetInfoAction extends ActionSupport {
 
 			List<TFollow> followers = iFollowService
 					.getFollowerList(uid, 0, 10);
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			users = new ArrayList<UserInfo>();
 			for (TFollow follower : followers) {
 				users.add(factory.convertBean(follower, true));
@@ -52,7 +52,7 @@ public class FollowGetInfoAction extends ActionSupport {
 			System.out.println(uid);
 			List<TFollow> followers = iFollowService.getFollowingList(uid, 0,
 					10);
-			BeansFactory factory = BeansFactory.Instance();
+			BeansFactory factory = new BeansFactory();
 			users = new ArrayList<UserInfo>();
 			for (TFollow follower : followers) {
 				users.add(factory.convertBean(follower, false));
