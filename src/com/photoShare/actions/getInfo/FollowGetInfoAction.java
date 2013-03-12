@@ -30,13 +30,13 @@ public class FollowGetInfoAction extends ActionSupport {
 			int pageNow = userInfo.getCurrentPage();
 			int pageSize = userInfo.getDemandPage();
 
-			List<TFollow> followers = iFollowService
+			users = iFollowService
 					.getFollowerList(uid, 0, 10);
-			BeansFactory factory = new BeansFactory();
-			users = new ArrayList<UserInfo>();
-			for (TFollow follower : followers) {
-				users.add(factory.convertBean(follower, true));
-			}
+//			BeansFactory factory = new BeansFactory();
+//			users = new ArrayList<UserInfo>();
+//			for (TFollow follower : followers) {
+//				users.add(factory.convertBean(follower, true));
+//			}
 		} catch (Exception e) {
 
 		}
@@ -50,13 +50,13 @@ public class FollowGetInfoAction extends ActionSupport {
 			int pageNow = userInfo.getCurrentPage();
 			int pageSize = userInfo.getDemandPage();
 			System.out.println(uid);
-			List<TFollow> followers = iFollowService.getFollowingList(uid, 0,
+			users = iFollowService.getFollowingList(uid, 0,
 					10);
-			BeansFactory factory = new BeansFactory();
-			users = new ArrayList<UserInfo>();
-			for (TFollow follower : followers) {
-				users.add(factory.convertBean(follower, false));
-			}
+			// BeansFactory factory = new BeansFactory();
+			// users = new ArrayList<UserInfo>();
+			// for (TFollow follower : followers) {
+			// users.add(factory.convertBean(follower, false));
+			// }
 		} catch (Exception e) {
 
 		}

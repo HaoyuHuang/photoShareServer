@@ -4,16 +4,17 @@
 package com.photoShare.request.service.impl;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.photoShare.beans.Comment;
 import com.photoShare.exception.NetworkError;
 import com.photoShare.exception.TransactionError;
 import com.photoShare.hiber.domain.comments.TComment;
-import com.photoShare.hiber.domain.photo.TPhoto;
 import com.photoShare.hiber.domain.photo.TPhotoDAO;
-import com.photoShare.hiber.domain.user.TUser;
 import com.photoShare.hiber.domain.user.TUserDAO;
 import com.photoShare.request.service.ICommentService;
 
@@ -62,25 +63,47 @@ public class CommentService extends BasicService implements ICommentService {
 		this.photoDAO = photoDAO;
 	}
 
-	public List<TComment> getComments(java.io.Serializable photoId,
-			int pageNow, int pageSize) {
+	public List<Comment> getComments(java.io.Serializable photoId, int pageNow,
+			int pageSize) {
 		// TODO Auto-generated method stub
-		String hql = "from com.photoShare.hiber.domain.comments.TComment "
-				+ "where TPhoto.FId=? " + "order by FCreateTime";
-		Integer[] params = { Integer.valueOf(photoId.toString()) };
+		String proc = "{call GET_COMMENTS(?,?,?)}";
+		Object[] params = new Object[] { photoId, pageNow, pageSize };
+		int[] types = new int[] { Types.INTEGER, Types.INTEGER, Types.INTEGER };
 		try {
-			@SuppressWarnings("unchecked")
-			List<TComment> comments = (List<TComment>) executeQueryByPage(hql,
-					params, pageNow, pageSize);
-			if (comments == null) {
-				throw new TransactionError(
-						TransactionError.ERROR_CODE_NO_COMMENTS);
+			ResultSet rs = executeProcedure(proc, params, types);
+			List<Comment> comments = new ArrayList<Comment>();
+			while (rs.next()) {
+				Comment comment = new Comment();
+				comment.setCid(rs.getInt(1));
+				comment.setPid(rs.getInt(2));
+				comment.setUname(rs.getString(3));
+				comment.setCreateTime(rs.getDate(4).toString());
+				comment.setTinyurl(rs.getString(5));
+				comment.setUid(rs.getInt(6));
+				comment.setContent(rs.getString(7));
+				comments.add(comment);
 			}
 			return comments;
-		} catch (RuntimeException e) {
+		} catch (SQLException e1) {
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
 					"無法獲取數據");
 		}
-	}
 
+		// String hql = "from com.photoShare.hiber.domain.comments.TComment "
+		// + "where TPhoto.FId=? " + "order by FCreateTime";
+		// Integer[] params = { Integer.valueOf(photoId.toString()) };
+		// try {
+		// @SuppressWarnings("unchecked")
+		// List<TComment> comments = (List<TComment>) executeQueryByPage(hql,
+		// params, pageNow, pageSize);
+		// if (comments == null) {
+		// throw new TransactionError(
+		// TransactionError.ERROR_CODE_NO_COMMENTS);
+		// }
+		// return comments;
+		// } catch (RuntimeException e) {
+		// throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
+		// "無法獲取數據");
+		// }
+	}
 }

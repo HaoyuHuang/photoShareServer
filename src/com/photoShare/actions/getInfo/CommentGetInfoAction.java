@@ -27,13 +27,13 @@ public class CommentGetInfoAction extends ActionSupport {
 			int pageSize = comment.getDemandPage();
 			int pid = comment.getPid();
 
-			List<TComment> rspComments = iCommentService
+			comments = iCommentService
 					.getComments(pid, 0, 10);
-			BeansFactory factory = new BeansFactory();
-			comments = new ArrayList<Comment>();
-			for (TComment rsp : rspComments) {
-				comments.add(factory.convertBean(rsp));
-			}
+			// BeansFactory factory = new BeansFactory();
+			// comments = new ArrayList<Comment>();
+			// for (TComment rsp : rspComments) {
+			// comments.add(factory.convertBean(rsp));
+			// }
 		} catch (Exception e) {
 			throw e;
 		}

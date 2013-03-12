@@ -5,12 +5,12 @@ package com.photoShare.request.service.impl;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.photoShare.beans.FollowInfo;
+import com.photoShare.beans.UserInfo;
 import com.photoShare.exception.NetworkError;
 import com.photoShare.exception.TransactionError;
 import com.photoShare.hiber.domain.follow.TFollow;
@@ -92,34 +92,96 @@ public class FollowService extends BasicService implements IFollowService {
 		}
 	}
 
-	public List<TFollow> getFollowerList(Serializable id, int pageNow,
+	public List<UserInfo> getFollowerList(Serializable id, int pageNow,
 			int pageSize) {
-		String hql = "from TFollow where TUserByFFollowId.FId=? ";
-		Integer[] params = { Integer.valueOf(id.toString()) };
+		String proc = "{call GET_FOLLOWER_INFO(?,?,?)}";
+		Object[] params = new Object[] { id, pageNow, pageSize };
+		int[] types = new int[] { Types.INTEGER, Types.INTEGER, Types.INTEGER };
+
 		try {
-			@SuppressWarnings("unchecked")
-			List<TFollow> followers = (List<TFollow>) executeQueryByPage(hql,
-					params, pageNow, pageSize);
-			return followers;
+			ResultSet rs = executeProcedure(proc, params, types);
+			List<UserInfo> info = new ArrayList<UserInfo>();
+			while (rs.next()) {
+				UserInfo user = new UserInfo();
+				user.setUid(rs.getInt(1));
+				user.setMail(rs.getString(2));
+				user.setPwd(rs.getString(3));
+				user.setName(rs.getString(4));
+				user.setPseudoname(rs.getString(5));
+				user.setHeadurl(rs.getString(7));
+				user.setWebsite(rs.getString(8));
+				user.setBio(rs.getString(9));
+				user.setPhone(rs.getString(10));
+				user.setGender(rs.getString(11));
+				user.setBirthday(rs.getDate(12).toString());
+				user.setPrivacy(rs.getBoolean(13));
+				user.setTinyurl(rs.getString(14));
+				user.setLargeurl(rs.getString(15));
+				info.add(user);
+			}
+			return info;
 		} catch (Exception e) {
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
 					"無法獲取數據");
 		}
+
+		// String hql = "from TFollow where TUserByFFollowId.FId=? ";
+		// Integer[] params = { Integer.valueOf(id.toString()) };
+		// try {
+		// @SuppressWarnings("unchecked")
+		// List<TFollow> followers = (List<TFollow>) executeQueryByPage(hql,
+		// params, pageNow, pageSize);
+		// return followers;
+		// } catch (Exception e) {
+		// throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
+		// "無法獲取數據");
+		// }
 	}
 
-	public List<TFollow> getFollowingList(Serializable id, int pageNow,
+	public List<UserInfo> getFollowingList(Serializable id, int pageNow,
 			int pageSize) {
-		String hql = "from TFollow where TUserByFMyId.FId=? ";
-		Integer[] params = { Integer.valueOf(id.toString()) };
+		String proc = "{call GET_FOLLOWING_INFO(?,?,?)}";
+		Object[] params = new Object[] { id, pageNow, pageSize };
+		int[] types = new int[] { Types.INTEGER, Types.INTEGER, Types.INTEGER };
+
 		try {
-			@SuppressWarnings("unchecked")
-			List<TFollow> followers = (List<TFollow>) executeQueryByPage(hql,
-					params, pageNow, pageSize);
-			return followers;
+			ResultSet rs = executeProcedure(proc, params, types);
+			List<UserInfo> info = new ArrayList<UserInfo>();
+			while (rs.next()) {
+				UserInfo user = new UserInfo();
+				user.setUid(rs.getInt(1));
+				user.setMail(rs.getString(2));
+				user.setPwd(rs.getString(3));
+				user.setName(rs.getString(4));
+				user.setPseudoname(rs.getString(5));
+				user.setHeadurl(rs.getString(7));
+				user.setWebsite(rs.getString(8));
+				user.setBio(rs.getString(9));
+				user.setPhone(rs.getString(10));
+				user.setGender(rs.getString(11));
+				user.setBirthday(rs.getDate(12).toString());
+				user.setPrivacy(rs.getBoolean(13));
+				user.setTinyurl(rs.getString(14));
+				user.setLargeurl(rs.getString(15));
+				info.add(user);
+			}
+			return info;
 		} catch (Exception e) {
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
 					"無法獲取數據");
 		}
+		
+		// String hql = "from TFollow where TUserByFMyId.FId=? ";
+		// Integer[] params = { Integer.valueOf(id.toString()) };
+		// try {
+		// @SuppressWarnings("unchecked")
+		// List<TFollow> followers = (List<TFollow>) executeQueryByPage(hql,
+		// params, pageNow, pageSize);
+		// return followers;
+		// } catch (Exception e) {
+		// throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
+		// "無法獲取數據");
+		// }
 	}
 
 }
