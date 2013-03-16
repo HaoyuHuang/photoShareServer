@@ -32,7 +32,7 @@ public class UserHome extends ActionSupport {
 			user.setFBirthday(Format.TimeConverte(userInfo.getBirthday()));
 			user.setFBio(userInfo.getBio());
 			BeansFactory factory = new BeansFactory();
-			userInfo = factory.convertBean(user, false);
+			userInfo = factory.convertNewBean(user);
 			iUserService.editUserInfo(user);
 		} catch (Exception e) {
 			throw new NetworkError(NetworkError.ERROR_EDIT_PROFILE, "–ﬁ∏ƒ ß∞‹",
@@ -81,7 +81,7 @@ public class UserHome extends ActionSupport {
 			user.setFPrivacy(mPrivacy);
 			iUserService.editUserInfo(user);
 			BeansFactory factory = new BeansFactory();
-			userInfo = factory.convertBean(user, false);
+			userInfo = factory.convertNewBean(user);
 		} catch (Exception e) {
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "…Ë÷√ ß∞‹",
 					"…Ë÷√ ß∞‹");

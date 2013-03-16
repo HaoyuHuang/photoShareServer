@@ -36,7 +36,7 @@ public class FriendsAction extends ActionSupport {
 			BeansFactory factory = new BeansFactory();
 			friends = new ArrayList<UserInfo>();
 			for (TUser user : users) {
-				friends.add(factory.convertBean(user, false));
+				friends.add(factory.convertNewBean(user));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

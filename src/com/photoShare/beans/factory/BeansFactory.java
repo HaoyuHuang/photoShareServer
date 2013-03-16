@@ -50,6 +50,30 @@ public class BeansFactory {
 		userInfo.setLikesCnt(user.getTLikes().size());
 		return userInfo;
 	}
+	
+	public UserInfo convertNewBean(TUser user) {
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUid(user.getFId());
+		userInfo.setName(user.getFUserName());
+		userInfo.setPseudoname(user.getFPseudoName());
+		userInfo.setMail(user.getFMail());
+		userInfo.setGender(user.getFGender());
+		if (user.getFBirthday() != null) {
+			userInfo.setBirthday(user.getFBirthday().toString());
+		}
+		userInfo.setWebsite(user.getFWebsite());
+		userInfo.setBio(user.getFBio());
+		userInfo.setPhone(user.getFPhoneNumber());
+		userInfo.setPrivacy(user.getFPrivacy() == 1 ? true : false);
+		userInfo.setTinyurl(user.getFTinyPhoto());
+		userInfo.setHeadurl(user.getFPhoto());
+		userInfo.setLargeurl(user.getFLargePhoto());
+		userInfo.setFollower(0);
+		userInfo.setFollowing(0);
+		userInfo.setPhotosCnt(0);
+		userInfo.setLikesCnt(0);
+		return userInfo;
+	}
 
 	public LikeInfo convertBean(TLike like) {
 		LikeInfo likeInfo = new LikeInfo();
@@ -76,6 +100,23 @@ public class BeansFactory {
 		bean.CommentCnt(photo.getTComments().size());
 		bean.LikesCnt(photo.getTLikes().size());
 		bean.isLike(isLike);
+		bean.TinyUrl(photo.getFSmallSizeUrl());
+		bean.MiddleUrl(photo.getFMiddleSizeUrl());
+		bean.LargeUrl(photo.getFLargeSizeUrl());
+		return bean.build();
+	}
+	
+	public PhotoBean convertNewBean(TPhoto photo) {
+		PhotoBeanBuidler bean = new PhotoBeanBuidler();
+//		TUser user = photo.getTUser();
+		bean.Pid(photo.getFId());
+//		bean.Uid(user.getFId());
+//		bean.UserName(user.getFUserName());
+//		bean.TinyHeadUrl(user.getFTinyPhoto());
+		bean.Caption(photo.getFCaption());
+		bean.CreateTime(photo.getFCreateTime().toString());
+		bean.CommentCnt(0);
+		bean.LikesCnt(0);
 		bean.TinyUrl(photo.getFSmallSizeUrl());
 		bean.MiddleUrl(photo.getFMiddleSizeUrl());
 		bean.LargeUrl(photo.getFLargeSizeUrl());

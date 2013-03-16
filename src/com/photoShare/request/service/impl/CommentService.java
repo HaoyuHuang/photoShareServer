@@ -12,7 +12,6 @@ import java.util.List;
 
 import com.photoShare.beans.Comment;
 import com.photoShare.exception.NetworkError;
-import com.photoShare.exception.TransactionError;
 import com.photoShare.hiber.domain.comments.TComment;
 import com.photoShare.hiber.domain.photo.TPhotoDAO;
 import com.photoShare.hiber.domain.user.TUserDAO;
@@ -77,7 +76,11 @@ public class CommentService extends BasicService implements ICommentService {
 				comment.setCid(rs.getInt(1));
 				comment.setPid(rs.getInt(2));
 				comment.setUname(rs.getString(3));
-				comment.setCreateTime(rs.getDate(4).toString());
+				if (rs.getDate(4) != null) {
+					comment.setCreateTime(rs.getDate(4).toString());
+				} else {
+					comment.setCreateTime("没有评论时间哦");
+				}
 				comment.setTinyurl(rs.getString(5));
 				comment.setUid(rs.getInt(6));
 				comment.setContent(rs.getString(7));
@@ -85,6 +88,7 @@ public class CommentService extends BasicService implements ICommentService {
 			}
 			return comments;
 		} catch (SQLException e1) {
+			e1.printStackTrace();
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
 					"無法獲取數據");
 		}

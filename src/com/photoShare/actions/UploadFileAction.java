@@ -94,7 +94,7 @@ public class UploadFileAction extends ActionSupport {
 							System.out.println(srcPhoto.getFMiddleSizeUrl());
 							System.out.println(srcPhoto.getFSmallSizeUrl());
 							BeansFactory factory = new BeansFactory();
-							photo = factory.convertBean(srcPhoto, false);
+							photo = factory.convertNewBean(srcPhoto);
 							semaphore.release();
 						} catch (Exception e) {
 							e.printStackTrace();

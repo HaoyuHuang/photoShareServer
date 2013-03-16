@@ -4,11 +4,13 @@
 package com.photoShare.request.service.impl;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.photoShare.beans.LikeInfo;
 import com.photoShare.exception.NetworkError;
-import com.photoShare.exception.TransactionError;
 import com.photoShare.hiber.domain.like.TLike;
 import com.photoShare.hiber.domain.photo.TPhoto;
 import com.photoShare.hiber.domain.photo.TPhotoDAO;
@@ -60,22 +62,48 @@ public class LikeService extends BasicService implements ILikeService {
 		this.photoDAO = photoDAO;
 	}
 
-	public List<TLike> getLikesInfo(Serializable id, int pageNow, int pageSize) {
-		String hql = "from TLike " + "where TPhoto.FId = ?";
-		Integer[] params = { Integer.valueOf(id.toString()) };
+	public List<LikeInfo> getLikesInfo(Serializable id, int pageNow,
+			int pageSize) {
+		String proc = "{call GET_LIKE_INFO(?,?,?)}";
+		Object[] params = new Object[] { id, pageNow, pageSize };
+		int[] types = new int[] { Types.INTEGER, Types.INTEGER, Types.INTEGER };
 		try {
-			@SuppressWarnings("unchecked")
-			List<TLike> likes = (List<TLike>) executeQueryByPage(hql, params,
-					pageNow, pageSize);
-			if (likes == null) {
-				throw new TransactionError(
-						TransactionError.ERROR_CODE_NO_LIKE_ITEMS);
+			ResultSet rs = executeProcedure(proc, params, types);
+			List<LikeInfo> likes = new ArrayList<LikeInfo>();
+			while (rs.next()) {
+				LikeInfo info = new LikeInfo();
+				info.setLid(rs.getInt(1));
+				info.setUid(rs.getInt(2));
+				info.setPid(rs.getInt(3));
+				info.setUname(rs.getString(4));
+				info.setTinyHead(rs.getString(5));
+				info.setLike(rs.getBoolean(6));
+				if (rs.getDate(7) != null) {
+					info.setCreateTime(rs.getDate(7).toString());
+				}
+				likes.add(info);
 			}
 			return likes;
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
 					"無法獲取數據");
 		}
+		// String hql = "from TLike " + "where TPhoto.FId = ?";
+		// Integer[] params = { Integer.valueOf(id.toString()) };
+		// try {
+		// @SuppressWarnings("unchecked")
+		// List<TLike> likes = (List<TLike>) executeQueryByPage(hql, params,
+		// pageNow, pageSize);
+		// if (likes == null) {
+		// throw new TransactionError(
+		// TransactionError.ERROR_CODE_NO_LIKE_ITEMS);
+		// }
+		// return likes;
+		// } catch (RuntimeException e) {
+		// throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
+		// "無法獲取數據");
+		// }
 	}
 
 	public TLike Dislike(Serializable userId, Serializable photoId) {

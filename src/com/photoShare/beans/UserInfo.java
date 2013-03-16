@@ -15,6 +15,8 @@ public class UserInfo extends RequestParam {
 
 	private String pseudoname;
 
+	private String createTime;
+
 	private String website;
 
 	private String bio;
@@ -73,6 +75,14 @@ public class UserInfo extends RequestParam {
 
 	public void setPrivacy(boolean privacy) {
 		this.privacy = privacy;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 
 	public boolean isFollowing() {

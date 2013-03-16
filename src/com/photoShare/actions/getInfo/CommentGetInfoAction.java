@@ -1,12 +1,9 @@
 package com.photoShare.actions.getInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.photoShare.beans.Comment;
-import com.photoShare.beans.factory.BeansFactory;
-import com.photoShare.hiber.domain.comments.TComment;
 import com.photoShare.request.service.ICommentService;
 
 public class CommentGetInfoAction extends ActionSupport {
@@ -28,7 +25,7 @@ public class CommentGetInfoAction extends ActionSupport {
 			int pid = comment.getPid();
 
 			comments = iCommentService
-					.getComments(pid, 0, 10);
+					.getComments(pid, 1, 10);
 			// BeansFactory factory = new BeansFactory();
 			// comments = new ArrayList<Comment>();
 			// for (TComment rsp : rspComments) {

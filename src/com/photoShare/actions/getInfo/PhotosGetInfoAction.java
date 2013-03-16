@@ -1,16 +1,13 @@
 package com.photoShare.actions.getInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.json.annotations.JSON;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.photoShare.beans.UserInfo;
-import com.photoShare.beans.factory.BeansFactory;
 import com.photoShare.beans.photos.PhotoBean;
 import com.photoShare.beans.photos.PopularPhotoHolder;
-import com.photoShare.hiber.domain.photo.TPhoto;
 import com.photoShare.request.service.ILikeService;
 import com.photoShare.request.service.IPhotoService;
 
@@ -33,14 +30,14 @@ public class PhotosGetInfoAction extends ActionSupport {
 			int pageNow = userInfo.getCurrentPage();
 			int pageSize = userInfo.getDemandPage();
 			String fields = userInfo.getFields();
-			List<TPhoto> feeds = iPhotoService.getUserLikedPhoto(uid, 0, 10);
-			photos = new ArrayList<PhotoBean>();
-			BeansFactory factory = new BeansFactory();
-			for (TPhoto feed : feeds) {
-				photos.add(factory.convertBean(feed, true));
-			}
+			photos = iPhotoService.getUserLikedPhoto(uid, 0, 10);
+//			photos = new ArrayList<PhotoBean>();
+//			BeansFactory factory = new BeansFactory();
+//			for (TPhoto feed : feeds) {
+//				photos.add(factory.convertBean(feed, true));
+//			}
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 		return SUCCESS;
@@ -54,15 +51,15 @@ public class PhotosGetInfoAction extends ActionSupport {
 			int pageNow = userInfo.getCurrentPage();
 			int pageSize = userInfo.getDemandPage();
 			String fields = userInfo.getFields();
-			List<TPhoto> feeds = iPhotoService.getUserPhotos(uid, 0, 10);
-			photos = new ArrayList<PhotoBean>();
-			BeansFactory factory = new BeansFactory();
-			for (TPhoto feed : feeds) {
-				photos.add(factory.convertBean(feed, true));
-			}
-			System.out.println(uid);
+			photos = iPhotoService.getUserPhotos(uid, 0, 10);
+//			photos = new ArrayList<PhotoBean>();
+//			BeansFactory factory = new BeansFactory();
+//			for (TPhoto feed : feeds) {
+//				photos.add(factory.convertBean(feed, true));
+//			}
+//			System.out.println(uid);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 		return SUCCESS;

@@ -1,12 +1,9 @@
 package com.photoShare.actions.getInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.photoShare.beans.LikeInfo;
-import com.photoShare.beans.factory.BeansFactory;
-import com.photoShare.hiber.domain.like.TLike;
 import com.photoShare.request.service.ILikeService;
 
 public class LikeGetInfoAction extends ActionSupport {
@@ -26,13 +23,13 @@ public class LikeGetInfoAction extends ActionSupport {
 			int pageSize = like.getDemandPage();
 			int pid = like.getPid();
 
-			List<TLike> tlikes = iLikeService.getLikesInfo(pid, 0, 10);
-			likes = new ArrayList<LikeInfo>();
-			BeansFactory factory = new BeansFactory();
-			for (TLike like : tlikes) {
-				System.out.println(like.getFLikeTime());
-				likes.add(factory.convertBean(like));
-			}
+			likes = iLikeService.getLikesInfo(pid, 0, 10);
+//			likes = new ArrayList<LikeInfo>();
+//			BeansFactory factory = new BeansFactory();
+//			for (TLike like : tlikes) {
+//				System.out.println(like.getFLikeTime());
+//				likes.add(factory.convertBean(like));
+//			}
 		} catch (Exception e) {
 			throw e;
 		}

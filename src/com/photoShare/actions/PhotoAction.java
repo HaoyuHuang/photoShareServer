@@ -2,10 +2,8 @@ package com.photoShare.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.photoShare.beans.PhotoInfo;
-import com.photoShare.beans.factory.BeansFactory;
 import com.photoShare.beans.photos.PhotoBean;
 import com.photoShare.exception.NetworkError;
-import com.photoShare.hiber.domain.photo.TPhoto;
 import com.photoShare.request.service.ILikeService;
 import com.photoShare.request.service.IPhotoService;
 
@@ -26,9 +24,10 @@ public class PhotoAction extends ActionSupport {
 		try {
 			int pid = photoBean.getPid();
 			int uid = photoBean.getUid();
-			TPhoto tphoto = iPhotoService.getPhoto(pid);
-			BeansFactory factory = new BeansFactory();
-			photo = factory.convertBean(tphoto, iLikeService.isLike(uid, pid));
+			photo = iPhotoService.getPhoto(uid, pid);
+			// BeansFactory factory = new BeansFactory();
+			// photo = factory.convertBean(tphoto, iLikeService.isLike(uid,
+			// pid));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "ªÒ»° ß∞‹",

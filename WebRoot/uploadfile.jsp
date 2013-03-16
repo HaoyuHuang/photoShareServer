@@ -43,5 +43,23 @@
 		<s:textfield name="userInfo.uid" />
 		<s:submit value="upload" />
 	</s:form>
+	
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/FollowGetInfoAction_getFollowerInfo">
+		<s:textfield name="userInfo.uid" />
+		<s:submit value="getFollowerInfo" />
+	</s:form>
+	
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/FollowGetInfoAction_getFollowingInfo">
+		<s:textfield name="userInfo.uid" />
+		<s:submit value="getFollowingInfo" />
+	</s:form>
+	
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/CommentGetInfoAction">
+		<s:textfield name="comment.pid" />
+		<s:submit value="CommentGetInfoAction" />
+	</s:form>
 </body>
 </html>

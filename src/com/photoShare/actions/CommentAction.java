@@ -2,7 +2,6 @@ package com.photoShare.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.photoShare.beans.Comment;
-import com.photoShare.hiber.domain.comments.TComment;
 import com.photoShare.hiber.domain.photo.TPhotoDAO;
 import com.photoShare.hiber.domain.user.TUserDAO;
 import com.photoShare.request.service.ICommentService;

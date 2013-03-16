@@ -32,12 +32,12 @@ public interface IPhotoService {
 
 	public List<PhotoBean> getPopularPhotos();
 
-	public TPhoto getPhoto(java.io.Serializable id);
+	public PhotoBean getPhoto(java.io.Serializable uid, java.io.Serializable pid);
 
-	public List<TPhoto> getUserPhotos(java.io.Serializable id, int pageNow,
+	public List<PhotoBean> getUserPhotos(java.io.Serializable id, int pageNow,
 			int pageSize);
 
-	public List<TPhoto> getUserLikedPhoto(java.io.Serializable id, int pageNow,
+	public List<PhotoBean> getUserLikedPhoto(java.io.Serializable id, int pageNow,
 			int pageSize);
 
 }

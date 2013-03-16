@@ -108,12 +108,21 @@ public class FollowService extends BasicService implements IFollowService {
 				user.setPwd(rs.getString(3));
 				user.setName(rs.getString(4));
 				user.setPseudoname(rs.getString(5));
+				if (rs.getDate(6) != null) {
+					user.setCreateTime(rs.getDate(6).toString());
+				} else {
+					user.setCreateTime("没有创建时间哦");
+				}
 				user.setHeadurl(rs.getString(7));
 				user.setWebsite(rs.getString(8));
 				user.setBio(rs.getString(9));
 				user.setPhone(rs.getString(10));
 				user.setGender(rs.getString(11));
-				user.setBirthday(rs.getDate(12).toString());
+				if (rs.getDate(12) != null) {
+					user.setBirthday(rs.getDate(12).toString());
+				} else {
+					user.setBirthday("没有设置生日哦");
+				}
 				user.setPrivacy(rs.getBoolean(13));
 				user.setTinyurl(rs.getString(14));
 				user.setLargeurl(rs.getString(15));
@@ -121,6 +130,7 @@ public class FollowService extends BasicService implements IFollowService {
 			}
 			return info;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
 					"無法獲取數據");
 		}
@@ -154,12 +164,21 @@ public class FollowService extends BasicService implements IFollowService {
 				user.setPwd(rs.getString(3));
 				user.setName(rs.getString(4));
 				user.setPseudoname(rs.getString(5));
+				if (rs.getDate(6) != null) {
+					user.setCreateTime(rs.getDate(6).toString());
+				} else {
+					user.setCreateTime("没有创建时间哦");
+				}
 				user.setHeadurl(rs.getString(7));
 				user.setWebsite(rs.getString(8));
 				user.setBio(rs.getString(9));
 				user.setPhone(rs.getString(10));
 				user.setGender(rs.getString(11));
-				user.setBirthday(rs.getDate(12).toString());
+				if (rs.getDate(12) != null) {
+					user.setBirthday(rs.getDate(12).toString());
+				} else {
+					user.setBirthday("没有设置生日哦");
+				}
 				user.setPrivacy(rs.getBoolean(13));
 				user.setTinyurl(rs.getString(14));
 				user.setLargeurl(rs.getString(15));
@@ -167,10 +186,11 @@ public class FollowService extends BasicService implements IFollowService {
 			}
 			return info;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
 					"無法獲取數據");
 		}
-		
+
 		// String hql = "from TFollow where TUserByFMyId.FId=? ";
 		// Integer[] params = { Integer.valueOf(id.toString()) };
 		// try {

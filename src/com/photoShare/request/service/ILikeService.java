@@ -5,6 +5,7 @@ package com.photoShare.request.service;
 
 import java.util.List;
 
+import com.photoShare.beans.LikeInfo;
 import com.photoShare.hiber.domain.like.TLike;
 
 /**
@@ -34,7 +35,7 @@ public interface ILikeService {
 	 * @param id
 	 * @return
 	 */
-	public List<TLike> getLikesInfo(java.io.Serializable id, int pageNow,
+	public List<LikeInfo> getLikesInfo(java.io.Serializable id, int pageNow,
 			int pageSize);
 
 	public boolean exist(java.io.Serializable uid, java.io.Serializable pid);
