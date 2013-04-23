@@ -43,7 +43,7 @@ public class BeansFactory {
 		userInfo.setTinyurl(user.getFTinyPhoto());
 		userInfo.setHeadurl(user.getFPhoto());
 		userInfo.setLargeurl(user.getFLargePhoto());
-		userInfo.setFollower(user.getTFollowsForFFollowId().size());
+		userInfo.setFollowerCnt(user.getTFollowsForFFollowId().size());
 		userInfo.setFollowing(user.getTFollowsForFMyId().size());
 		userInfo.setFollowing(isFollowing);
 		userInfo.setPhotosCnt(user.getTPhotos().size());
@@ -68,7 +68,7 @@ public class BeansFactory {
 		userInfo.setTinyurl(user.getFTinyPhoto());
 		userInfo.setHeadurl(user.getFPhoto());
 		userInfo.setLargeurl(user.getFLargePhoto());
-		userInfo.setFollower(0);
+		userInfo.setFollowerCnt(0);
 		userInfo.setFollowing(0);
 		userInfo.setPhotosCnt(0);
 		userInfo.setLikesCnt(0);

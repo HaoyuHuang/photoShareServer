@@ -20,7 +20,7 @@ public interface ILikeService {
 	 * @param like
 	 *            喜爱事件
 	 * */
-	public TLike Like(java.io.Serializable userId, java.io.Serializable photoId);
+	public LikeInfo Like(java.io.Serializable userId, java.io.Serializable photoId);
 
 	/**
 	 * 取消喜欢

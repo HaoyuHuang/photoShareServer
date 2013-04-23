@@ -2,14 +2,14 @@ package com.photoShare.server;
 
 import org.apache.struts2.json.annotations.JSON;
 
-public abstract class RequestParam {
-	protected int currentPage;
+public class RequestParam {
+	public int currentPage;
 
-	protected int demandPage;
+	public int demandPage;
 
-	protected String fields;
+	public String fields;
 
-	protected String method;
+	public String method;
 
 	@JSON(serialize = false)
 	public int getCurrentPage() {
@@ -17,6 +17,7 @@ public abstract class RequestParam {
 	}
 
 	public void setCurrentPage(int currentPage) {
+		System.out.println("Current Page: " + currentPage);
 		this.currentPage = currentPage;
 	}
 

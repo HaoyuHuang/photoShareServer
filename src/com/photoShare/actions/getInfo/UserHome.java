@@ -61,7 +61,7 @@ public class UserHome extends ActionSupport {
 		try {
 			int uid = userInfo.getUid();
 			int fid = userInfo.getFid();
-			String fields = userInfo.getFields();
+//			String fields = userInfo.getFields();
 			userInfo = iUserService.getOtherUserInfo(uid, fid);
 		} catch (Exception e) {
 			e.printStackTrace();

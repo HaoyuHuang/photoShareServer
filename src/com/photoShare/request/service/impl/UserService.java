@@ -15,6 +15,7 @@ import com.photoShare.hiber.domain.follow.TFollow;
 import com.photoShare.hiber.domain.user.TUser;
 import com.photoShare.hiber.domain.user.TUserDAO;
 import com.photoShare.request.service.IUserService;
+import com.photoShare.server.Server;
 import com.photoShare.util.Format;
 
 public class UserService extends BasicService implements IUserService {
@@ -96,17 +97,17 @@ public class UserService extends BasicService implements IUserService {
 				user.setPwd(rs.getString(3));
 				user.setName(rs.getString(4));
 				user.setPseudoname(rs.getString(5));
-				user.setTinyurl(rs.getString(7));
+				user.setTinyurl(Server.SERVER_URL + rs.getString(7));
 				user.setWebsite(rs.getString(8));
 				user.setBio(rs.getString(9));
 				user.setPhone(rs.getString(10));
 				user.setGender(rs.getString(11));
 				user.setBirthday(rs.getString(12));
 				user.setPrivacy(rs.getBoolean(13));
-				user.setHeadurl(rs.getString(14));
-				user.setLargeurl(rs.getString(15));
+				user.setHeadurl(Server.SERVER_URL + rs.getString(14));
+				user.setLargeurl(Server.SERVER_URL + rs.getString(15));
 				user.setPhotosCnt(rs.getInt(16));
-				user.setFollower(rs.getInt(17));
+				user.setFollowerCnt(rs.getInt(17));
 				user.setFollowing(rs.getInt(18));
 				user.setLikesCnt(rs.getInt(19));
 			}
@@ -243,17 +244,17 @@ public class UserService extends BasicService implements IUserService {
 				user.setPwd(rs.getString(3));
 				user.setName(rs.getString(4));
 				user.setPseudoname(rs.getString(5));
-				user.setTinyurl(rs.getString(7));
+				user.setTinyurl(Server.SERVER_URL + rs.getString(7));
 				user.setWebsite(rs.getString(8));
 				user.setBio(rs.getString(9));
 				user.setPhone(rs.getString(10));
 				user.setGender(rs.getString(11));
 				user.setBirthday(rs.getString(12));
 				user.setPrivacy(rs.getBoolean(13));
-				user.setHeadurl(rs.getString(14));
-				user.setLargeurl(rs.getString(15));
+				user.setHeadurl(Server.SERVER_URL + rs.getString(14));
+				user.setLargeurl(Server.SERVER_URL + rs.getString(15));
 				user.setPhotosCnt(rs.getInt(16));
-				user.setFollower(rs.getInt(17));
+				user.setFollowerCnt(rs.getInt(17));
 				user.setFollowing(rs.getInt(18));
 				user.setFollowing(rs.getBoolean(19));
 				user.setLikesCnt(rs.getInt(20));

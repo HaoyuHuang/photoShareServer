@@ -34,7 +34,7 @@ public class FollowGetInfoAction extends ActionSupport {
 			// users.add(factory.convertBean(follower, true));
 			// }
 		} catch (Exception e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return SUCCESS;
 	}
@@ -53,7 +53,7 @@ public class FollowGetInfoAction extends ActionSupport {
 			// users.add(factory.convertBean(follower, false));
 			// }
 		} catch (Exception e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return SUCCESS;
 	}
@@ -68,6 +68,11 @@ public class FollowGetInfoAction extends ActionSupport {
 
 	public List<UserInfo> getUsers() {
 		return users;
+	}
+
+	@JSON(serialize = false)
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
 
 	public void setUsers(List<UserInfo> users) {

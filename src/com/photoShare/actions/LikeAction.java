@@ -19,11 +19,14 @@ public class LikeAction extends ActionSupport {
 			int uid = like.getUid();
 			int pid = like.getPid();
 			boolean isLike = like.isLike();
-			iLikeService.Like(uid, pid);
+			System.out.println(isLike);
+			System.out.println("Like Action: uid:" + uid + "pid:" + pid
+					+ "isLike:" + isLike);
+			LikeInfo retVal = iLikeService.Like(uid, pid);
+			like.setLike(retVal.isLike());
 		} catch (Exception e) {
 			throw e;
 		}
-
 		return SUCCESS;
 	}
 

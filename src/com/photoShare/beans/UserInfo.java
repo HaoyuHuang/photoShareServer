@@ -1,8 +1,15 @@
 package com.photoShare.beans;
 
+import org.apache.struts2.json.annotations.JSON;
+
 import com.photoShare.server.RequestParam;
 
 public class UserInfo extends RequestParam {
+
+//	private int currentpage;
+//
+//	private int demandpage;
+
 	private int uid;
 
 	private String name;
@@ -35,9 +42,9 @@ public class UserInfo extends RequestParam {
 
 	private String largeurl;
 
-	private int follower;
+	private int followerCnt;
 
-	private int following;
+	private int followingCnt;
 
 	private int photosCnt;
 
@@ -154,6 +161,7 @@ public class UserInfo extends RequestParam {
 	}
 
 	public void setUid(int uid) {
+		System.out.println("setUID" + uid);
 		this.uid = uid;
 	}
 
@@ -181,20 +189,20 @@ public class UserInfo extends RequestParam {
 		this.largeurl = largeurl;
 	}
 
-	public int getFollower() {
-		return follower;
+	public int getFollowerCnt() {
+		return followerCnt;
 	}
 
-	public void setFollower(int follower) {
-		this.follower = follower;
+	public void setFollowerCnt(int follower) {
+		this.followerCnt = follower;
 	}
 
-	public int getFollowing() {
-		return following;
+	public int getFollowingCnt() {
+		return followingCnt;
 	}
 
 	public void setFollowing(int following) {
-		this.following = following;
+		this.followingCnt = following;
 	}
 
 	public int getPhotosCnt() {

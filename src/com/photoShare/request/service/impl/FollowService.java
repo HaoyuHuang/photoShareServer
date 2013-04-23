@@ -17,6 +17,7 @@ import com.photoShare.hiber.domain.follow.TFollow;
 import com.photoShare.hiber.domain.user.TUser;
 import com.photoShare.hiber.domain.user.TUserDAO;
 import com.photoShare.request.service.IFollowService;
+import com.photoShare.server.Server;
 
 /**
  * @author Administrator
@@ -113,7 +114,7 @@ public class FollowService extends BasicService implements IFollowService {
 				} else {
 					user.setCreateTime("没有创建时间哦");
 				}
-				user.setHeadurl(rs.getString(7));
+				user.setHeadurl(Server.SERVER_URL + rs.getString(7));
 				user.setWebsite(rs.getString(8));
 				user.setBio(rs.getString(9));
 				user.setPhone(rs.getString(10));
@@ -124,8 +125,8 @@ public class FollowService extends BasicService implements IFollowService {
 					user.setBirthday("没有设置生日哦");
 				}
 				user.setPrivacy(rs.getBoolean(13));
-				user.setTinyurl(rs.getString(14));
-				user.setLargeurl(rs.getString(15));
+				user.setTinyurl(Server.SERVER_URL + rs.getString(14));
+				user.setLargeurl(Server.SERVER_URL + rs.getString(15));
 				info.add(user);
 			}
 			return info;
@@ -169,7 +170,7 @@ public class FollowService extends BasicService implements IFollowService {
 				} else {
 					user.setCreateTime("没有创建时间哦");
 				}
-				user.setHeadurl(rs.getString(7));
+				user.setHeadurl(Server.SERVER_URL + rs.getString(7));
 				user.setWebsite(rs.getString(8));
 				user.setBio(rs.getString(9));
 				user.setPhone(rs.getString(10));
@@ -180,8 +181,8 @@ public class FollowService extends BasicService implements IFollowService {
 					user.setBirthday("没有设置生日哦");
 				}
 				user.setPrivacy(rs.getBoolean(13));
-				user.setTinyurl(rs.getString(14));
-				user.setLargeurl(rs.getString(15));
+				user.setTinyurl(Server.SERVER_URL + rs.getString(14));
+				user.setLargeurl(Server.SERVER_URL + rs.getString(15));
 				info.add(user);
 			}
 			return info;

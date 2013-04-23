@@ -29,13 +29,13 @@ public class PhotosGetInfoAction extends ActionSupport {
 			int uid = userInfo.getUid();
 			int pageNow = userInfo.getCurrentPage();
 			int pageSize = userInfo.getDemandPage();
-			String fields = userInfo.getFields();
-			photos = iPhotoService.getUserLikedPhoto(uid, 0, 10);
-//			photos = new ArrayList<PhotoBean>();
-//			BeansFactory factory = new BeansFactory();
-//			for (TPhoto feed : feeds) {
-//				photos.add(factory.convertBean(feed, true));
-//			}
+			// String fields = userInfo.getFields();
+			photos = iPhotoService.getUserLikedPhoto(uid, pageNow, pageSize);
+			// photos = new ArrayList<PhotoBean>();
+			// BeansFactory factory = new BeansFactory();
+			// for (TPhoto feed : feeds) {
+			// photos.add(factory.convertBean(feed, true));
+			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,14 +50,14 @@ public class PhotosGetInfoAction extends ActionSupport {
 			int uid = userInfo.getUid();
 			int pageNow = userInfo.getCurrentPage();
 			int pageSize = userInfo.getDemandPage();
-			String fields = userInfo.getFields();
-			photos = iPhotoService.getUserPhotos(uid, 0, 10);
-//			photos = new ArrayList<PhotoBean>();
-//			BeansFactory factory = new BeansFactory();
-//			for (TPhoto feed : feeds) {
-//				photos.add(factory.convertBean(feed, true));
-//			}
-//			System.out.println(uid);
+			// String fields = userInfo.getFields();
+			photos = iPhotoService.getUserPhotos(uid, pageNow, pageSize);
+			// photos = new ArrayList<PhotoBean>();
+			// BeansFactory factory = new BeansFactory();
+			// for (TPhoto feed : feeds) {
+			// photos.add(factory.convertBean(feed, true));
+			// }
+			// System.out.println(uid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -91,8 +91,9 @@ public class PhotosGetInfoAction extends ActionSupport {
 			int uid = userInfo.getUid();
 			int pageNow = userInfo.getCurrentPage();
 			int pageSize = userInfo.getDemandPage();
-			String fields = userInfo.getFields();
-			photos = iPhotoService.getFeeds(uid, 1, 10);
+			// String fields = userInfo.getFields();
+			System.out.println(uid + "-----" + pageNow + "----" + pageSize);
+			photos = iPhotoService.getFeeds(uid, pageNow, pageSize);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,6 +114,11 @@ public class PhotosGetInfoAction extends ActionSupport {
 
 	public void setPhotos(List<PhotoBean> photos) {
 		this.photos = photos;
+	}
+
+	@JSON(serialize = false)
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
 
 	public void setiLikeService(ILikeService iLikeService) {

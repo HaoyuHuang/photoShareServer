@@ -61,5 +61,11 @@
 		<s:textfield name="comment.pid" />
 		<s:submit value="CommentGetInfoAction" />
 	</s:form>
+	
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/PhotosGetInfoAction_getUserPhotos">
+		<s:textfield name="userInfo.uid" />
+		<s:submit value="UserPhotosGetInfoAction" />
+	</s:form>
 </body>
 </html>

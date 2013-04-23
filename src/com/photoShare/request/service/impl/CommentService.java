@@ -16,6 +16,7 @@ import com.photoShare.hiber.domain.comments.TComment;
 import com.photoShare.hiber.domain.photo.TPhotoDAO;
 import com.photoShare.hiber.domain.user.TUserDAO;
 import com.photoShare.request.service.ICommentService;
+import com.photoShare.server.Server;
 
 /**
  * @author Administrator
@@ -81,7 +82,7 @@ public class CommentService extends BasicService implements ICommentService {
 				} else {
 					comment.setCreateTime("没有评论时间哦");
 				}
-				comment.setTinyurl(rs.getString(5));
+				comment.setTinyurl(Server.SERVER_URL + rs.getString(5));
 				comment.setUid(rs.getInt(6));
 				comment.setContent(rs.getString(7));
 				comments.add(comment);

@@ -34,16 +34,21 @@ public class LikeService extends BasicService implements ILikeService {
 	 * com.service.interfaces.LikeServiceInterface#around(com.hiber.domain.like
 	 * .TLike)
 	 */
-	public TLike Like(Serializable userId, Serializable photoId) {
+	public LikeInfo Like(Serializable userId, Serializable photoId) {
 		Object[] params = new Object[] { userId, photoId };
 		int[] types = new int[] { Types.INTEGER, Types.INTEGER };
 		String proc = "{call PUT_LIKE(?,?)}";
 		try {
-			executeProcedure(proc, params, types);
+			ResultSet rs = executeProcedure(proc, params, types);
+			LikeInfo info = new LikeInfo();
+			while (rs.next()) {
+				info.setLike(rs.getBoolean(1));
+			}
+			return info;
 		} catch (Exception e1) {
+			e1.printStackTrace();
 			throw new NetworkError(NetworkError.ERRPR_LIKE, "ÔÞÊ§°Ü", "ÔÞÊ§°Ü");
 		}
-		return null;
 	}
 
 	public TUserDAO getUserDAO() {
