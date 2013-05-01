@@ -1,7 +1,8 @@
 package com.photoShare.actions;
 
 import java.io.File;
-import java.util.concurrent.Semaphore;
+
+import org.apache.struts2.json.annotations.JSON;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.photoShare.async.AbstractAsyncListener;
@@ -26,7 +27,7 @@ public class UploadFileAction extends ActionSupport {
 	private IPhotoService photoService;
 	private IFileTools mFileTools;
 	private AsyncUtils async;
-	private Semaphore semaphore = new Semaphore(0);
+	// private Semaphore semaphore = new Semaphore(0);
 	private File image;
 	private String imageFilePath;
 	private String imageContentType;
@@ -43,21 +44,34 @@ public class UploadFileAction extends ActionSupport {
 
 		if (image != null) {
 
-			File dir = new File(classpath + "\\" + "test" + "\\" + "photo"
-					+ "\\" + "upload" + "\\");
-			if (!dir.mkdir()) {
-				dir.mkdirs();
+			try {
+				String relativePath = "/" + "test" + "/" + "photo" + "/"
+						+ "upload" + "/";
+
+				File dir = new File(classpath + relativePath);
+				if (!dir.mkdir()) {
+					dir.mkdirs();
+				}
+
+				String absolutePath = dir.getAbsolutePath();
+				final TPhoto srcPhoto = new TPhoto();
+				System.out.println("abpath -- " + absolutePath);
+				String name = mFileTools.write(image, absolutePath);
+				srcPhoto.setFCaption("");
+				srcPhoto.setFLargeSizeHeight(720);
+				srcPhoto.setFLargeSizeWidth(720);
+				srcPhoto.setFLargeSizeUrl(relativePath + name);
+				srcPhoto.setFMiddleSizeUrl(relativePath + name);
+				srcPhoto.setFSmallSizeUrl(relativePath + name);
+				photoService.publishPhoto(srcPhoto, uid);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
-			String absolutePath = dir.getAbsolutePath();
-			final TPhoto srcPhoto = new TPhoto();
-			System.out.println("abpath -- " + absolutePath);
-			String name = mFileTools.write(image, absolutePath);
-
-			File origFile = new File(absolutePath, name);
-			processImages(srcPhoto, origFile, absolutePath,
-					Integer.parseInt(uid));
-			semaphore.acquire();
+			// File origFile = new File(absolutePath, name);
+			// processImages(srcPhoto, origFile, absolutePath,
+			// Integer.parseInt(uid));
+			// semaphore.acquire();
 		}
 		return SUCCESS;
 	}
@@ -80,13 +94,6 @@ public class UploadFileAction extends ActionSupport {
 					@Override
 					public void onComplete(String bean) {
 						try {
-							// String name = origFile.getName();
-							// srcPhoto.setFMiddleSizeUrl(origFile
-							// .getAbsolutePath());
-							// srcPhoto.setFSmallSizeUrl(webPath + "tiny" +
-							// name);
-							// srcPhoto.setFLargeSizeUrl(webPath + "large" +
-							// name);
 							PhotoService photoService = new PhotoService();
 							photoService.setUserDAO(new TUserDAO());
 							photoService.publishPhoto(srcPhoto, uid);
@@ -95,7 +102,7 @@ public class UploadFileAction extends ActionSupport {
 							System.out.println(srcPhoto.getFSmallSizeUrl());
 							BeansFactory factory = new BeansFactory();
 							photo = factory.convertNewBean(srcPhoto);
-							semaphore.release();
+							// semaphore.release();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -125,6 +132,45 @@ public class UploadFileAction extends ActionSupport {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+
+	@JSON(serialize = false)
+	public IPhotoService getPhotoService() {
+		return photoService;
+	}
+
+	@JSON(serialize = false)
+	public IFileTools getmFileTools() {
+		return mFileTools;
+	}
+
+	@JSON(serialize = false)
+	public AsyncUtils getAsync() {
+		return async;
+	}
+
+	@JSON(serialize = false)
+	public File getImage() {
+		return image;
+	}
+
+	@JSON(serialize = false)
+	public String getImageFilePath() {
+		return imageFilePath;
+	}
+
+	@JSON(serialize = false)
+	public String getImageContentType() {
+		return imageContentType;
+	}
+
+	@JSON(serialize = false)
+	public String getUid() {
+		return uid;
+	}
+
+	public void setPhoto(PhotoBean photo) {
+		this.photo = photo;
 	}
 
 	public void setAsync(AsyncUtils async) {

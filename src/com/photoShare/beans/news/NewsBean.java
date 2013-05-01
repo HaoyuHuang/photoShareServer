@@ -11,6 +11,7 @@ import com.photoShare.beans.photos.PhotoBean;
  * @author czj_yy
  * 
  */
+@Deprecated
 public class NewsBean {
 
 	public static final String KEY_NEWS = "news";

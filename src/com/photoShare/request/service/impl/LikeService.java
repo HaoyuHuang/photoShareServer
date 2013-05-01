@@ -17,6 +17,7 @@ import com.photoShare.hiber.domain.photo.TPhotoDAO;
 import com.photoShare.hiber.domain.user.TUser;
 import com.photoShare.hiber.domain.user.TUserDAO;
 import com.photoShare.request.service.ILikeService;
+import com.photoShare.util.QuartzUtils;
 
 /**
  * @author Administrator
@@ -84,7 +85,7 @@ public class LikeService extends BasicService implements ILikeService {
 				info.setTinyHead(rs.getString(5));
 				info.setLike(rs.getBoolean(6));
 				if (rs.getDate(7) != null) {
-					info.setCreateTime(rs.getDate(7).toString());
+					info.setCreateTime(QuartzUtils.format(rs.getDate(7)));
 				}
 				likes.add(info);
 			}
@@ -170,6 +171,36 @@ public class LikeService extends BasicService implements ILikeService {
 				// TransactionError.ERROR_CODE_NO_LIKE_ITEMS);
 			}
 			return like != null ? true : false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
+					"無法獲取數據");
+		}
+	}
+
+	@Override
+	public List<LikeInfo> getLikesInfoByDatediff(Serializable photoId,
+			int datediff) {
+		String proc = "{call GET_LIKE_INFO_BY_DATEDIFF(?,?)}";
+		Object[] params = new Object[] { photoId, datediff };
+		int[] types = new int[] { Types.INTEGER, Types.INTEGER };
+		try {
+			ResultSet rs = executeProcedure(proc, params, types);
+			List<LikeInfo> likes = new ArrayList<LikeInfo>();
+			while (rs.next()) {
+				LikeInfo info = new LikeInfo();
+				info.setLid(rs.getInt(1));
+				info.setUid(rs.getInt(2));
+				info.setPid(rs.getInt(3));
+				info.setUname(rs.getString(4));
+				info.setTinyHead(rs.getString(5));
+				info.setLike(rs.getBoolean(6));
+				if (rs.getDate(7) != null) {
+					info.setCreateTime(QuartzUtils.format(rs.getDate(7)));
+				}
+				likes.add(info);
+			}
+			return likes;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",

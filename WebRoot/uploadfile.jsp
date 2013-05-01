@@ -13,7 +13,7 @@
 	</s:url>
 
 	<s:form method="post" enctype="multipart/form-data"
-		action="/photoShare/test">
+		action="/photoShare-mobile/CommentAction">
 		<%-- 		<s:textfield name="photo.FCaption" label="Caption" />
 		<s:file name="userImage" /> --%>
 		<s:submit value="insertComment" />
@@ -25,7 +25,7 @@
 	</s:form>
 
 	<s:form method="post" enctype="multipart/form-data"
-		action="/photoShare/uploadPhoto">
+		action="/photoShare-mobile/uploadPhoto">
 		<s:textfield name="uid" />
 		<s:file value="Photo" name="image" />
 		<s:submit value="upload" />
@@ -37,35 +37,90 @@
 		<s:textfield name="userInfo.fid" />
 		<s:submit value="upload" />
 	</s:form>
-	
+
 	<s:form method="post" enctype="multipart/form-data"
 		action="/photoShare-mobile/UserHome_getUserProfile">
 		<s:textfield name="userInfo.uid" />
 		<s:submit value="upload" />
 	</s:form>
-	
+
 	<s:form method="post" enctype="multipart/form-data"
 		action="/photoShare-mobile/FollowGetInfoAction_getFollowerInfo">
 		<s:textfield name="userInfo.uid" />
 		<s:submit value="getFollowerInfo" />
 	</s:form>
-	
+
 	<s:form method="post" enctype="multipart/form-data"
 		action="/photoShare-mobile/FollowGetInfoAction_getFollowingInfo">
 		<s:textfield name="userInfo.uid" />
 		<s:submit value="getFollowingInfo" />
 	</s:form>
-	
+
 	<s:form method="post" enctype="multipart/form-data"
 		action="/photoShare-mobile/CommentGetInfoAction">
 		<s:textfield name="comment.pid" />
 		<s:submit value="CommentGetInfoAction" />
 	</s:form>
-	
+
 	<s:form method="post" enctype="multipart/form-data"
 		action="/photoShare-mobile/PhotosGetInfoAction_getUserPhotos">
 		<s:textfield name="userInfo.uid" />
 		<s:submit value="UserPhotosGetInfoAction" />
 	</s:form>
+
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/BaseNewsAction_getFollowingNews">
+		<s:textfield name="uid" />
+		<s:textfield name="datediff" />
+		<s:submit value="UserNewsGetInfoAction" />
+	</s:form>
+
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/BaseNewsAction_getUserNews">
+		<s:textfield name="uid" />
+		<s:textfield name="datediff" />
+		<s:submit value="UserNewsGetInfoAction" />
+	</s:form>
+
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/CommentGetInfoAction_getCommentInfo">
+		<s:textfield name="comment.pid" />
+		<s:submit value="CommentGetInfo" />
+	</s:form>
+
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/CommentGetInfoAction_getCommentInfoByDatediff">
+		<s:textfield name="comment.pid" />
+		<s:textfield name="datediff" />
+		<s:submit value="CommentGetInfoByDate" />
+	</s:form>
+
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/FollowGetInfoAction_getFollowingInfoByDatediff">
+		<s:textfield name="userInfo.uid" />
+		<s:textfield name="datediff" />
+		<s:submit value="FollowingGetInfoByDate" />
+	</s:form>
+
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/FollowGetInfoAction_getFollowerInfoByDatediff">
+		<s:textfield name="userInfo.uid" />
+		<s:textfield name="datediff" />
+		<s:submit value="FollowerGetInfoByDate" />
+	</s:form>
+
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/LikeGetInfoAction_getLikeInfo">
+		<s:textfield name="like.pid" />
+		<s:submit value="LikeGetInfo" />
+	</s:form>
+	
+	<s:form method="post" enctype="multipart/form-data"
+		action="/photoShare-mobile/LikeGetInfoAction_getLikeInfoByDatediff">
+		<s:textfield name="like.pid" />
+		<s:textfield name="datediff"/>
+		<s:submit value="LikeGetInfoByDate" />
+	</s:form>
+
 </body>
 </html>

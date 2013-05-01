@@ -20,6 +20,7 @@ public class PhotosGetInfoAction extends ActionSupport {
 	private IPhotoService iPhotoService;
 	private ILikeService iLikeService;
 	private List<PhotoBean> photos;
+	private String pids;
 
 	@JSON(serialize = false)
 	public String getUserLikedPhotos() {
@@ -39,7 +40,18 @@ public class PhotosGetInfoAction extends ActionSupport {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return SUCCESS;
+	}
 
+	@JSON(serialize = false)
+	public String getNewsPhotos() {
+		try {
+			System.out.println("getNewsPhotos");
+			int uid = userInfo.getUid();
+			photos = iPhotoService.getPhotos(uid, pids);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return SUCCESS;
 	}
 
@@ -106,6 +118,15 @@ public class PhotosGetInfoAction extends ActionSupport {
 
 	public void setiPhotoService(IPhotoService iPhotoService) {
 		this.iPhotoService = iPhotoService;
+	}
+
+	@JSON(serialize = false)
+	public String getPids() {
+		return pids;
+	}
+
+	public void setPids(String pids) {
+		this.pids = pids;
 	}
 
 	public List<PhotoBean> getPhotos() {

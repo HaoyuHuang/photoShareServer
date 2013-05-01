@@ -18,6 +18,7 @@ public class FollowGetInfoAction extends ActionSupport {
 	private UserInfo userInfo;
 	private IFollowService iFollowService;
 	private List<UserInfo> users;
+	private int datediff;
 
 	@JSON(serialize = false)
 	public String getFollowerInfo() {
@@ -34,7 +35,7 @@ public class FollowGetInfoAction extends ActionSupport {
 			// users.add(factory.convertBean(follower, true));
 			// }
 		} catch (Exception e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 		}
 		return SUCCESS;
 	}
@@ -53,7 +54,33 @@ public class FollowGetInfoAction extends ActionSupport {
 			// users.add(factory.convertBean(follower, false));
 			// }
 		} catch (Exception e) {
-			// e.printStackTrace();
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+
+	@JSON(serialize = false)
+	public String getFollowingInfoByDatediff() {
+		System.out.println("getFollowingInfoByDatediff");
+		try {
+			int uid = userInfo.getUid();
+			System.out.println(uid + " " + datediff);
+			users = iFollowService.getFollowingListByDatediff(uid, datediff);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+
+	@JSON(serialize = false)
+	public String getFollowerInfoByDatediff() {
+		System.out.println("getFollowerInfoByDatediff");
+		try {
+			int uid = userInfo.getUid();
+			System.out.println(uid + " " + datediff);
+			users = iFollowService.getFollowerListByDatediff(uid, datediff);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return SUCCESS;
 	}
@@ -77,6 +104,15 @@ public class FollowGetInfoAction extends ActionSupport {
 
 	public void setUsers(List<UserInfo> users) {
 		this.users = users;
+	}
+
+	@JSON(serialize = false)
+	public int getDatediff() {
+		return datediff;
+	}
+
+	public void setDatediff(int datediff) {
+		this.datediff = datediff;
 	}
 
 }

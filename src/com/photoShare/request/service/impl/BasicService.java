@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -238,6 +239,26 @@ public class BasicService implements IBasicService {
 				call.setObject(i + 1, params[i], types[i]);
 			}
 			return call.executeQuery();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			if (session != null && session.isOpen()) {
+				closeSession();
+			}
+		}
+	}
+
+	public boolean executeSqlStatement(String sql) {
+		Session session = null;
+		try {
+			session = getSession();
+			Connection conn = session.connection();
+			Statement call = conn.createStatement();
+			return call.execute(sql);
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());

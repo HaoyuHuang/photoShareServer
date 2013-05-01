@@ -87,6 +87,7 @@
 		</bean> -->
 	<bean id="newsService" class="com.photoShare.request.service.impl.NewsService">
 	</bean>
+	<bean id="baseNewsService" class="com.photoShare.request.service.impl.BaseNewsService"></bean>
 	<!-- <bean id="newsResponseBean" class="com.photoShare.response.service.impl.NewsResponseBean"> 
 		<property name="mPhotoResponseBean" ref="photoResponseBean"></property> </bean> -->
 
@@ -159,6 +160,11 @@
 	<bean id="NewsActionClass" class="com.photoShare.actions.getInfo.NewsAction"
 		autowire="byName" singleton="false">
 		<property name="mNewsService" ref="newsService" />
+	</bean>
+
+	<bean id="BaseNewsActionClass" class="com.photoShare.actions.getInfo.BaseNewsAction"
+		autowire="byName" singleton="false">
+		<property name="mNewsService" ref="baseNewsService"></property>
 	</bean>
 
 	<bean id="PhotosGetInfoActionClass" class="com.photoShare.actions.getInfo.PhotosGetInfoAction"

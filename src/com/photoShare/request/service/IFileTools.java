@@ -8,5 +8,5 @@ public interface IFileTools {
 	public File createFile(String path, String name);
 
 	public String write(File origFile, String destDest);
-
+	
 }

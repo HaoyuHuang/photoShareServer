@@ -84,15 +84,13 @@
 			</result>
 		</action>
 
-		<action name="uploadPhoto" class="com.photoShare.actions.UploadFileAction">
-			<result name="SUCCESS">
-				/uploadsuccess.jsp
-			</result>
-		</action>
 	</package>
 
 	<package name="ajaxDemo" extends="json-default" namespace="/photoShare-mobile">
 		<action name="loadInfo" class="AjaxActionClass">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="uploadPhoto" class="com.photoShare.actions.UploadFileAction">
 			<result name="success" type="json"></result>
 		</action>
 
@@ -100,7 +98,8 @@
 			<result name="success" type="json"></result>
 		</action>
 
-		<action name="CommentGetInfoAction" class="CommentGetInfoActionClass">
+		<action name="CommentGetInfoAction_*" method="{1}"
+			class="CommentGetInfoActionClass">
 			<result name="success" type="json"></result>
 		</action>
 
@@ -117,7 +116,8 @@
 			<result name="success" type="json"></result>
 		</action>
 
-		<action name="LikeGetInfoAction" class="LikeGetInfoActionClass">
+		<action name="LikeGetInfoAction_*" method="{1}"
+			class="LikeGetInfoActionClass">
 			<result name="success" type="json"></result>
 		</action>
 
@@ -126,6 +126,11 @@
 		</action>
 
 		<action name="NewsAction_*" class="NewsActionClass" method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="BaseNewsAction_*" class="BaseNewsActionClass"
+			method="{1}">
 			<result name="success" type="json"></result>
 		</action>
 

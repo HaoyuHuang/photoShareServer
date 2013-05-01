@@ -232,7 +232,7 @@ public final class QuartzUtils {
 		String retVal = "";
 		if (date != null) {
 			SimpleDateFormat format = new SimpleDateFormat(
-					"yyyyÄê-MMÔÂ-ddÌì a hh:mm:ss E");
+					"yyyy-MM-dd E hh:mm:ss");
 			retVal = format.format(date);
 		}
 		return retVal;

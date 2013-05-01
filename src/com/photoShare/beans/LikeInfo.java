@@ -1,6 +1,7 @@
 package com.photoShare.beans;
 
 import com.photoShare.server.RequestParam;
+import com.photoShare.server.Server;
 
 public class LikeInfo extends RequestParam {
 	private int uid;
@@ -58,7 +59,7 @@ public class LikeInfo extends RequestParam {
 	}
 
 	public String getTinyHead() {
-		return tinyHead;
+		return Server.SERVER_URL + tinyHead;
 	}
 
 	public void setTinyHead(String tinyHead) {

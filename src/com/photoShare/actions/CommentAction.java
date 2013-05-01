@@ -1,5 +1,7 @@
 package com.photoShare.actions;
 
+import java.net.URLDecoder;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.photoShare.beans.Comment;
 import com.photoShare.hiber.domain.photo.TPhotoDAO;
@@ -19,18 +21,16 @@ public class CommentAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		System.out.println("Put Comment");
 		try {
-			// String content = comment.getContent();
-			// int uid = comment.getUid();
-			// int pid = comment.getPid();
-			CommentService iCommentService = new CommentService();
-			iCommentService.setPhotoDAO(new TPhotoDAO());
-			iCommentService.setUserDAO(new TUserDAO());
-			iCommentService.putComments("qwe", 3, 16);
-
-			// BeansFactory factory = BeansFactory.Instance();
-			// comment = factory.convertBean(rspComment);
-
+			if (comment != null) {
+				String content = comment.getContent();
+				content = URLDecoder.decode(content, "utf-8");
+				System.out.println(content);
+				int uid = comment.getUid();
+				int pid = comment.getPid();
+				comment = iCommentService.putComments(content, uid, pid);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

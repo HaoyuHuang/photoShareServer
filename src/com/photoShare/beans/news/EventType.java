@@ -7,6 +7,7 @@ package com.photoShare.beans.news;
  * @author czj_yy
  * 
  */
+@Deprecated
 public enum EventType {
 
 	NULL(0), LIKE(1), FOLLOW(2), POPULAR(3), COMMENT(4);

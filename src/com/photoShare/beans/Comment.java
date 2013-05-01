@@ -1,6 +1,7 @@
 package com.photoShare.beans;
 
 import com.photoShare.server.RequestParam;
+import com.photoShare.server.Server;
 
 public class Comment extends RequestParam {
 	private int pid;
@@ -24,7 +25,7 @@ public class Comment extends RequestParam {
 	public void setPid(int pid) {
 		this.pid = pid;
 	}
-	
+
 	public int getUid() {
 		return uid;
 	}
@@ -66,11 +67,11 @@ public class Comment extends RequestParam {
 	}
 
 	public String getTinyurl() {
-		return tinyurl;
+		return Server.SERVER_URL + tinyurl;
 	}
 
 	public void setTinyurl(String tinyurl) {
 		this.tinyurl = tinyurl;
 	}
-	
+
 }

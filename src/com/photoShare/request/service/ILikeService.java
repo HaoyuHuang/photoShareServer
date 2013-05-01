@@ -20,7 +20,8 @@ public interface ILikeService {
 	 * @param like
 	 *            喜爱事件
 	 * */
-	public LikeInfo Like(java.io.Serializable userId, java.io.Serializable photoId);
+	public LikeInfo Like(java.io.Serializable userId,
+			java.io.Serializable photoId);
 
 	/**
 	 * 取消喜欢
@@ -37,6 +38,9 @@ public interface ILikeService {
 	 */
 	public List<LikeInfo> getLikesInfo(java.io.Serializable id, int pageNow,
 			int pageSize);
+
+	public List<LikeInfo> getLikesInfoByDatediff(java.io.Serializable photoId,
+			int datediff);
 
 	public boolean exist(java.io.Serializable uid, java.io.Serializable pid);
 

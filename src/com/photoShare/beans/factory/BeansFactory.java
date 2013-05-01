@@ -50,7 +50,7 @@ public class BeansFactory {
 		userInfo.setLikesCnt(user.getTLikes().size());
 		return userInfo;
 	}
-	
+
 	public UserInfo convertNewBean(TUser user) {
 		UserInfo userInfo = new UserInfo();
 		userInfo.setUid(user.getFId());
@@ -105,14 +105,14 @@ public class BeansFactory {
 		bean.LargeUrl(photo.getFLargeSizeUrl());
 		return bean.build();
 	}
-	
+
 	public PhotoBean convertNewBean(TPhoto photo) {
 		PhotoBeanBuidler bean = new PhotoBeanBuidler();
-//		TUser user = photo.getTUser();
-		bean.Pid(photo.getFId());
-//		bean.Uid(user.getFId());
-//		bean.UserName(user.getFUserName());
-//		bean.TinyHeadUrl(user.getFTinyPhoto());
+		// TUser user = photo.getTUser();
+		// bean.Pid(photo.getFId());
+		// bean.Uid(user.getFId());
+		// bean.UserName(user.getFUserName());
+		// bean.TinyHeadUrl(user.getFTinyPhoto());
 		bean.Caption(photo.getFCaption());
 		bean.CreateTime(photo.getFCreateTime().toString());
 		bean.CommentCnt(0);

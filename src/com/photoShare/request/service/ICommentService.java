@@ -19,10 +19,12 @@ public interface ICommentService {
 	 * 
 	 * @param ÆÀÂÛ
 	 * */
-	public TComment putComments(String comment, java.io.Serializable userId,
+	public Comment putComments(String comment, java.io.Serializable userId,
 			java.io.Serializable photoId);
 
-	public List<Comment> getComments(java.io.Serializable photoId,
-			int pageNow, int pageSize);
+	public List<Comment> getComments(java.io.Serializable photoId, int pageNow,
+			int pageSize);
+
+	public List<Comment> getCommentsByDatediff(java.io.Serializable photoId, int datediff);
 
 }

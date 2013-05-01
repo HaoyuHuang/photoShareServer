@@ -17,6 +17,7 @@ import com.photoShare.hiber.domain.photo.TPhotoDAO;
 import com.photoShare.hiber.domain.user.TUserDAO;
 import com.photoShare.request.service.ICommentService;
 import com.photoShare.server.Server;
+import com.photoShare.util.QuartzUtils;
 
 /**
  * @author Administrator
@@ -34,17 +35,27 @@ public class CommentService extends BasicService implements ICommentService {
 	 * com.service.interfaces.CommentServiceInterface#putComments(com.hiber.
 	 * domain.comments.TComment)
 	 */
-	public TComment putComments(String comment, Serializable userId,
+	public Comment putComments(String comment, Serializable userId,
 			Serializable photoId) {
 		Object[] params = new Object[] { userId, photoId, comment };
 		String proc = "{call PUT_COMMENT(?,?,?)}";
 		int[] types = new int[] { Types.INTEGER, Types.INTEGER, Types.VARCHAR };
+		Comment retComment = new Comment();
 		try {
-			executeProcedure(proc, params, types);
+			ResultSet rs = executeProcedure(proc, params, types);
+			while (rs.next()) {
+				retComment.setPid(rs.getInt(1));
+				retComment.setCid(rs.getInt(2));
+				retComment.setUname(rs.getString(3));
+				retComment.setCreateTime(rs.getDate(4).toString());
+				retComment.setTinyurl(rs.getString(5));
+				retComment.setUid(rs.getInt(6));
+				retComment.setContent(rs.getString(7));
+			}
+			return retComment;
 		} catch (Exception e1) {
 			throw new NetworkError(NetworkError.ERROR_COMMENT, "评论失败", "评论失败");
 		}
-		return null;
 	}
 
 	public TUserDAO getUserDAO() {
@@ -78,7 +89,7 @@ public class CommentService extends BasicService implements ICommentService {
 				comment.setPid(rs.getInt(2));
 				comment.setUname(rs.getString(3));
 				if (rs.getDate(4) != null) {
-					comment.setCreateTime(rs.getDate(4).toString());
+					comment.setCreateTime(QuartzUtils.format(rs.getDate(4)));
 				} else {
 					comment.setCreateTime("没有评论时间哦");
 				}
@@ -110,5 +121,37 @@ public class CommentService extends BasicService implements ICommentService {
 		// throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
 		// "無法獲取數據");
 		// }
+	}
+
+	@Override
+	public List<Comment> getCommentsByDatediff(Serializable photoId,
+			int datediff) {
+		String proc = "{call GET_COMMENTS_BY_DATEDIFF(?,?)}";
+		Object[] params = new Object[] { photoId, datediff };
+		int[] types = new int[] { Types.INTEGER, Types.INTEGER };
+		try {
+			ResultSet rs = executeProcedure(proc, params, types);
+			List<Comment> comments = new ArrayList<Comment>();
+			while (rs.next()) {
+				Comment comment = new Comment();
+				comment.setCid(rs.getInt(1));
+				comment.setPid(rs.getInt(2));
+				comment.setUname(rs.getString(3));
+				if (rs.getDate(4) != null) {
+					comment.setCreateTime(QuartzUtils.format(rs.getDate(4)));
+				} else {
+					comment.setCreateTime("没有评论时间哦");
+				}
+				comment.setTinyurl(Server.SERVER_URL + rs.getString(5));
+				comment.setUid(rs.getInt(6));
+				comment.setContent(rs.getString(7));
+				comments.add(comment);
+			}
+			return comments;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			throw new NetworkError(NetworkError.ERROR_REFRESH_DATA, "無法獲取數據",
+					"無法獲取數據");
+		}
 	}
 }

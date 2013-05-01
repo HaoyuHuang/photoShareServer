@@ -25,6 +25,12 @@ public interface IFollowService {
 	public List<UserInfo> getFollowingList(Serializable id, int pageNow,
 			int pageSize);
 
+	public List<UserInfo> getFollowingListByDatediff(Serializable uid,
+			int datediff);
+
+	public List<UserInfo> getFollowerListByDatediff(Serializable uid,
+			int datediff);
+
 	/**
 	 * ¸úËæ
 	 * 
